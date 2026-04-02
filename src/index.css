@@ -111,7 +111,51 @@
            transition-all duration-150 active:translate-x-[2px] active:translate-y-[2px];
   }
   .brutal-card {
-    @apply bg-card border-[3px] border-foreground/20 p-8 hover:border-primary transition-colors duration-150;
+    @apply bg-card border-[3px] border-foreground/20 p-8 transition-all duration-200;
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+  }
+  .brutal-card:hover {
+    @apply border-primary;
+    box-shadow: 6px 6px 0 0 hsl(var(--primary) / 0.25);
+    transform: translate(-2px, -2px);
+  }
+  .brutal-card:hover h3,
+  .brutal-card:hover .card-title {
+    animation: glitch 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Scenario/explore card hover */
+  .hover-brutal {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+  }
+  .hover-brutal:hover {
+    border-color: hsl(var(--primary)) !important;
+    box-shadow: 5px 5px 0 0 hsl(var(--primary) / 0.3);
+    transform: translate(-2px, -2px);
+    background: hsl(var(--primary) / 0.07);
+  }
+  .hover-brutal:hover h3 {
+    animation: glitch 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: hsl(var(--primary));
+  }
+  .hover-brutal:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 0 hsl(var(--primary) / 0.2);
+  }
+
+  /* Timeline card hover */
+  .hover-timeline {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hover-timeline:hover {
+    border-color: hsl(var(--primary) / 0.6) !important;
+    box-shadow: 4px 8px 0 0 hsl(var(--primary) / 0.15);
+    transform: translateY(-4px);
+    background: hsl(var(--primary) / 0.05);
+  }
+  .hover-timeline:hover h3 {
+    color: hsl(var(--primary));
   }
   .text-stroke {
     -webkit-text-stroke: 2px hsl(var(--foreground));

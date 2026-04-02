@@ -30,6 +30,8 @@ const bookExcerpts = [
   '«Безусловно, каждый человек уникален и любая жизнь полна событий и опасных поворотов. Но некоторые истории вызывают у нас особое удивление и захватывают необычными почти нереальными приключениями.»',
   '«Монастырь был запрещенной темой для меня 10 лет точно после того, как я вернулась к прежней жизни. Я не могла говорить об этом даже с мужем.»',
   '«Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять.»',
+  '«Иногда нужно потерять всё, чтобы найти себя. Не ту, которую ждут другие, а настоящую.»',
+  '«Путь — это не прямая линия. Это лабиринт, в котором каждый тупик учит чему-то важному.»',
 ];
 
 const timeline = [
@@ -130,7 +132,7 @@ export default function HomePage() {
 
   return (
     <SiteLayout>
-      {/* HERO */}
+      {/* ═══ HERO ═══ */}
       <section ref={heroRef} className="relative min-h-screen flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
@@ -141,12 +143,9 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/20" />
         </div>
-
-        {/* Decorative slash */}
         <div className="absolute top-10 right-4 md:right-12 opacity-10">
           <span className="text-[10rem] md:text-[18rem] font-black leading-none tracking-tighter text-primary">/</span>
         </div>
-
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 pb-20 pt-40">
           <p className="text-mono text-primary mb-6 animate-fade-up">пространство для тех, кто в переходе</p>
           <h1 className="heading-display mb-6 animate-fade-up animation-delay-200 max-w-5xl">
@@ -169,18 +168,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BOOK EXCERPT — interlude */}
+      {/* ═══ EXCERPT 1 ═══ */}
       <section className="py-12 md:py-16 px-6 border-t-[3px] border-primary/30 bg-card/50">
         <div className="max-w-3xl mx-auto">
           <ScrollReveal>
-            <blockquote className="book-quote text-lg md:text-xl">
-              {bookExcerpts[0]}
-            </blockquote>
+            <blockquote className="book-quote text-lg md:text-xl">{bookExcerpts[0]}</blockquote>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* MANIFESTO */}
+      {/* ═══ MANIFESTO ═══ */}
       <section className="py-24 md:py-40 px-6 border-t-[3px] border-foreground/10">
         <div className="max-w-[1400px] mx-auto">
           <p className="text-mono text-primary mb-12">манифест</p>
@@ -190,38 +187,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BOOK EXCERPT — interlude 2 */}
-      <section className="py-12 md:py-16 px-6 border-t-[3px] border-primary/30 border-b-[3px]">
-        <div className="max-w-3xl mx-auto">
-          <ScrollReveal>
-            <blockquote className="book-quote text-lg md:text-xl">
-              {bookExcerpts[1]}
-            </blockquote>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* WHO ARE YOU — Scenario cards */}
+      {/* ═══ WHO ARE YOU — first 3 scenarios ═══ */}
       <section className="py-24 md:py-32 px-6">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
             <p className="text-mono text-primary mb-4">выбери своё состояние</p>
             <h2 className="heading-large mb-16">КТО ТЫ<br />СЕЙЧАС?</h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-            {scenarios.map((s, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+            {scenarios.slice(0, 3).map((s, i) => (
               <ScrollReveal key={i} delay={i * 80}>
                 <button
                   onClick={() => setActiveScenario(activeScenario === i ? null : i)}
-                  className={`w-full text-left p-8 border-[3px] -mt-[3px] -ml-[3px] transition-all duration-200 group ${activeScenario === i ? 'border-primary bg-primary/10 animate-shake' : 'border-foreground/10 hover:border-primary/50 hover:bg-card'}`}
+                  className={`hover-brutal w-full text-left p-8 border-[3px] -mt-[3px] -ml-[3px] group ${activeScenario === i ? 'border-primary bg-primary/10 animate-shake' : 'border-foreground/10'}`}
                 >
                   <span className="text-mono text-muted-foreground mb-3 block">0{i + 1}</span>
-                  <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-4 group-hover:text-primary transition-colors">{s.title}</h3>
+                  <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-4 transition-colors">{s.title}</h3>
                   <div className={`overflow-hidden transition-all duration-300 ${activeScenario === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">{s.text}</p>
-                    <Link to="/interactives" className="text-mono text-primary hover:text-foreground transition-colors">
-                      Исследовать →
-                    </Link>
+                    <Link to="/interactives" className="text-mono text-primary hover:text-foreground transition-colors">Исследовать →</Link>
                   </div>
                 </button>
               </ScrollReveal>
@@ -230,7 +214,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* QUIZ CTA / QUIZ */}
+      {/* ═══ EXCERPT 2 — between scenario groups ═══ */}
+      <section className="py-12 md:py-16 px-6 border-t-[3px] border-primary/30 border-b-[3px]">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <blockquote className="book-quote text-lg md:text-xl">{bookExcerpts[1]}</blockquote>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══ QUIZ — interleaved after first scenarios ═══ */}
       {showQuiz ? (
         <section className="py-16 px-6 border-t-[3px] border-primary" id="quiz">
           <div className="max-w-4xl mx-auto">
@@ -256,18 +249,43 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* BOOK EXCERPT — interlude 3 */}
+      {/* ═══ REMAINING 3 scenarios ═══ */}
+      <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
+        <div className="max-w-[1400px] mx-auto">
+          <ScrollReveal>
+            <p className="text-mono text-primary mb-4">продолжение</p>
+            <h2 className="heading-large mb-16">А МОЖЕТ<br /><span className="text-stroke">ТАК?</span></h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+            {scenarios.slice(3).map((s, i) => (
+              <ScrollReveal key={i + 3} delay={i * 80}>
+                <button
+                  onClick={() => setActiveScenario(activeScenario === i + 3 ? null : i + 3)}
+                  className={`hover-brutal w-full text-left p-8 border-[3px] -mt-[3px] -ml-[3px] group ${activeScenario === i + 3 ? 'border-primary bg-primary/10 animate-shake' : 'border-foreground/10'}`}
+                >
+                  <span className="text-mono text-muted-foreground mb-3 block">0{i + 4}</span>
+                  <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-4 transition-colors">{s.title}</h3>
+                  <div className={`overflow-hidden transition-all duration-300 ${activeScenario === i + 3 ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">{s.text}</p>
+                    <Link to="/interactives" className="text-mono text-primary hover:text-foreground transition-colors">Исследовать →</Link>
+                  </div>
+                </button>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ EXCERPT 3 ═══ */}
       <section className="py-12 md:py-16 px-6 border-t-[3px] border-primary/20 bg-primary/5">
         <div className="max-w-3xl mx-auto">
           <ScrollReveal>
-            <blockquote className="book-quote text-lg md:text-xl">
-              {bookExcerpts[2]}
-            </blockquote>
+            <blockquote className="book-quote text-lg md:text-xl">{bookExcerpts[2]}</blockquote>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* TIMELINE */}
+      {/* ═══ TIMELINE ═══ */}
       <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10 bg-card/30">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
@@ -277,9 +295,9 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-0">
             {timeline.map((item, i) => (
               <ScrollReveal key={i} delay={i * 100}>
-                <div className="border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] p-8 hover:border-primary/50 transition-all duration-300 group hover:bg-primary/5">
+                <div className="hover-timeline border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] p-8 group">
                   <AnimatedNumber target={item.year} />
-                  <h3 className="font-black text-lg uppercase tracking-tight mb-2 group-hover:text-primary transition-colors">{item.label}</h3>
+                  <h3 className="font-black text-lg uppercase tracking-tight mb-2 transition-colors">{item.label}</h3>
                   <p className="text-muted-foreground text-sm">{item.desc}</p>
                 </div>
               </ScrollReveal>
@@ -287,20 +305,27 @@ export default function HomePage() {
           </div>
           <ScrollReveal>
             <div className="mt-12">
-              <Link to="/author" className="brutal-btn-outline inline-block">
-                Полная история →
-              </Link>
+              <Link to="/author" className="brutal-btn-outline inline-block">Полная история →</Link>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* BOOK */}
+      {/* ═══ EXCERPT 4 — before book ═══ */}
+      <section className="py-12 md:py-16 px-6 border-t-[3px] border-primary/30">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <blockquote className="book-quote text-lg md:text-xl">{bookExcerpts[3]}</blockquote>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══ BOOK ═══ */}
       <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 items-stretch">
             <ScrollReveal className="lg:col-span-2">
-              <div className="border-[3px] border-foreground/20 p-4 bg-card h-full flex items-center justify-center group overflow-hidden">
+              <div className="border-[3px] border-foreground/20 p-4 bg-card h-full flex items-center justify-center group overflow-hidden hover-brutal">
                 <img src={bookCover} alt="Книга Не поздно" className="w-full max-w-sm grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" loading="lazy" width={640} height={960} />
               </div>
             </ScrollReveal>
@@ -326,7 +351,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* VOICES TICKER */}
+      {/* ═══ VOICES TICKER ═══ */}
       <section className="py-8 border-t-[3px] border-b-[3px] border-primary overflow-hidden bg-primary">
         <div className="animate-ticker whitespace-nowrap flex gap-12">
           {[...voices, ...voices].map((v, i) => (
@@ -335,7 +360,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* EXPLORE */}
+      {/* ═══ EXCERPT 5 — before explore ═══ */}
+      <section className="py-12 md:py-16 px-6 border-t-[3px] border-primary/20">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <blockquote className="book-quote text-lg md:text-xl">{bookExcerpts[4]}</blockquote>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══ EXPLORE ═══ */}
       <section className="py-24 md:py-32 px-6">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
@@ -352,9 +386,9 @@ export default function HomePage() {
               { title: 'Книга', desc: 'Главное произведение', link: '/book' },
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 80}>
-                <Link to={item.link} className="block p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group">
+                <Link to={item.link} className="hover-brutal block p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] group">
                   <span className="text-mono text-muted-foreground mb-2 block">0{i + 1}</span>
-                  <h3 className="font-black text-xl uppercase tracking-tight mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                  <h3 className="font-black text-xl uppercase tracking-tight mb-2 transition-colors">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
                 </Link>
               </ScrollReveal>
@@ -363,7 +397,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SOFT CTA */}
+      {/* ═══ SOFT CTA ═══ */}
       <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
         <ScrollReveal>
           <div className="max-w-3xl mx-auto">
@@ -374,12 +408,8 @@ export default function HomePage() {
               У меня есть формат глубокой индивидуальной работы. Без давления, без обещаний волшебства. Просто — рядом.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/support" className="brutal-btn-outline text-center">
-                Узнать о сопровождении
-              </Link>
-              <Link to="/support#form" className="text-mono text-muted-foreground hover:text-primary transition-colors py-4">
-                Оставить запрос →
-              </Link>
+              <Link to="/support" className="brutal-btn-outline text-center">Узнать о сопровождении</Link>
+              <Link to="/support#form" className="text-mono text-muted-foreground hover:text-primary transition-colors py-4">Оставить запрос →</Link>
             </div>
           </div>
         </ScrollReveal>
