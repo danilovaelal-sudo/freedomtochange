@@ -238,7 +238,7 @@ export default function JournalPage() {
             <h1 className="heading-display mb-8">{selectedPost.title}</h1>
             <p className="text-mono text-muted-foreground mb-16">{selectedPost.date}</p>
             <div className="body-editorial text-muted-foreground space-y-6 border-[3px] border-foreground/10 p-8 md:p-12">
-              {selectedPost.fullText.map((paragraph, i) => (
+              {(selectedPost.fullText || []).map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
               ))}
               <blockquote className="book-quote">
