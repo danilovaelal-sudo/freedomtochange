@@ -82,10 +82,10 @@ export default function SupportPage() {
                   <h2 className="heading-section mb-8">Спасибо за доверие</h2>
                   <p className="text-muted-foreground mb-12">Твой запрос получен. Я свяжусь с тобой в ближайшее время.</p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className="px-8 py-3 bg-primary text-primary-foreground text-sm tracking-wide hover:bg-primary/80 transition-colors">
+                    <a href="https://t.me/danilovaelal" target="_blank" rel="noopener noreferrer" className="px-8 py-3 bg-primary text-primary-foreground text-sm tracking-wide hover:bg-primary/80 transition-colors">
                       Telegram
                     </a>
-                    <a href="https://vk.com/" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-border text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <a href="https://vk.ru/danilovaelal" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-border text-sm text-muted-foreground hover:text-foreground transition-colors">
                       ВКонтакте
                     </a>
                   </div>

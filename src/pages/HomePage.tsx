@@ -1,10 +1,10 @@
 import SiteLayout from '@/components/SiteLayout';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
+import { useParallax } from '@/hooks/useParallax';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
 import bookCover from '@/assets/book-cover.jpg';
-import authorPortrait from '@/assets/author-portrait.jpeg';
 import QuizShell from '@/components/QuizShell';
 
 const manifestItems = [
@@ -45,17 +45,73 @@ const voices = [
   '«Впервые за 20 лет я задала себе вопрос: а чего хочу я?»',
 ];
 
+/* Kinetic manifesto line */
+function KineticLine({ text, index }: { text: string; index: number }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (ref.current) {
+            const rect = ref.current.getBoundingClientRect();
+            const vh = window.innerHeight;
+            const p = 1 - Math.max(0, Math.min(1, (rect.top - vh * 0.3) / (vh * 0.5)));
+            setProgress(p);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const sizeClass = index % 3 === 0
+    ? 'text-5xl md:text-7xl'
+    : index % 3 === 1
+    ? 'text-4xl md:text-6xl'
+    : 'text-3xl md:text-5xl';
+
+  const xShift = (index % 2 === 0 ? -1 : 1) * (1 - progress) * 60;
+
+  return (
+    <p
+      ref={ref}
+      className={`font-serif leading-none mb-6 ${sizeClass} ${index % 2 === 0 ? '' : 'md:text-right'} transition-none`}
+      style={{
+        opacity: 0.15 + progress * 0.85,
+        transform: `translateX(${xShift}px) scale(${0.95 + progress * 0.05})`,
+        color: `hsl(40 15% ${50 + progress * 43}%)`,
+        willChange: 'transform, opacity',
+      }}
+    >
+      {text}
+    </p>
+  );
+}
+
 export default function HomePage() {
   const [activeScenario, setActiveScenario] = useState<number | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
+  const { ref: heroRef, offset: heroOffset } = useParallax(0.25);
 
   return (
     <SiteLayout>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero with parallax */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+          <img
+            src={heroBg}
+            alt=""
+            className="w-full h-full object-cover opacity-40"
+            style={{ transform: `translateY(${heroOffset}px) scale(1.1)`, willChange: 'transform' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center py-32">
           <p className="text-mono text-muted-foreground mb-8 animate-fade-up">пространство для тех, кто ищет себя</p>
@@ -78,15 +134,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Manifesto */}
+      {/* Kinetic Manifesto */}
       <section className="py-32 px-6">
         <div className="max-w-6xl mx-auto">
           {manifestItems.map((item, i) => (
-            <ScrollReveal key={i} delay={i * 100}>
-              <p className={`font-serif leading-none mb-6 ${i % 3 === 0 ? 'text-5xl md:text-7xl' : i % 3 === 1 ? 'text-4xl md:text-6xl text-muted-foreground' : 'text-3xl md:text-5xl text-muted-foreground/60'} ${i % 2 === 0 ? '' : 'md:text-right'}`}>
-                {item}
-              </p>
-            </ScrollReveal>
+            <KineticLine key={i} text={item} index={i} />
           ))}
         </div>
       </section>
