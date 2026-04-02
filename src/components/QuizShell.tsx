@@ -39,7 +39,7 @@ const questions: Question[] = [
     id: 3,
     text: 'Что тебе сейчас нужнее всего?',
     answers: [
-      { text: 'Понять, чего я на самом деле хочу', scores: { seeking: 2, awakening: 1 } },
+      { text: 'Понять, чего я хочу', scores: { seeking: 2, awakening: 1 } },
       { text: 'Перестать бояться перемен', scores: { crisis: 1, rebellion: 2 } },
       { text: 'Найти опору внутри себя', scores: { loss: 1, awakening: 2 } },
       { text: 'Разрешить себе жить по-другому', scores: { rebellion: 2, seeking: 1 } },
@@ -50,9 +50,9 @@ const questions: Question[] = [
     text: 'Как ты относишься к идее «начать заново»?',
     answers: [
       { text: 'Это пугает', scores: { crisis: 2 } },
-      { text: 'Это вдохновляет, но я не знаю как', scores: { seeking: 2 } },
-      { text: 'Я уже начала, но чувствую себя одинокой', scores: { loss: 1, awakening: 1 } },
-      { text: 'Я верю, что это возможно', scores: { awakening: 2, rebellion: 1 } },
+      { text: 'Вдохновляет, но я не знаю как', scores: { seeking: 2 } },
+      { text: 'Я уже начала, но одинока', scores: { loss: 1, awakening: 1 } },
+      { text: 'Верю, что возможно', scores: { awakening: 2, rebellion: 1 } },
     ],
   },
   {
@@ -71,36 +71,36 @@ const results: Result[] = [
   {
     key: 'seeking',
     title: 'Ты на пороге нового пути',
-    description: 'Ты чувствуешь, что прежнее уже не подходит, но новое ещё не оформилось. Это не кризис — это начало трансформации. Ты ищешь себя, и само это стремление — уже шаг вперёд.',
+    description: 'Ты чувствуешь, что прежнее уже не подходит, но новое ещё не оформилось. Это начало трансформации.',
     suggestion: 'Тебе может быть полезна «Карта моего перехода»',
     link: '/interactives',
   },
   {
     key: 'crisis',
     title: 'Ты в точке внутреннего напряжения',
-    description: 'Тебе тяжело. Возможно, ты чувствуешь, что всё рушится или застыло. Но именно в такие моменты рождается что-то настоящее. Ты не одна в этом.',
+    description: 'Тебе тяжело. Но именно в такие моменты рождается что-то настоящее. Ты не одна.',
     suggestion: 'Прочитай историю автора — она начинала заново не раз',
     link: '/author',
   },
   {
     key: 'loss',
     title: 'Ты переживаешь потерю прежней себя',
-    description: 'Что-то важное ушло — отношения, уверенность, ощущение опоры. Это больно, но за этой болью скрывается пространство для новой тебя.',
+    description: 'Что-то важное ушло. Это больно, но за этой болью скрывается пространство для новой тебя.',
     suggestion: 'Книга «Почему после 40 не поздно» написана именно об этом',
     link: '/book',
   },
   {
     key: 'rebellion',
     title: 'В тебе просыпается внутренний бунт',
-    description: 'Ты устала соответствовать. Устала быть удобной. Это не слабость — это сила, которая ищет выход. Твой бунт — это голос настоящей тебя.',
+    description: 'Ты устала соответствовать. Это не слабость — это сила. Твой бунт — это голос настоящей тебя.',
     suggestion: 'Попробуй «Письмо себе из будущего»',
     link: '/interactives',
   },
   {
     key: 'awakening',
     title: 'Ты уже просыпаешься',
-    description: 'Ты чувствуешь движение внутри. Что-то меняется, и ты готова идти навстречу этому. Доверься этому ощущению — оно ведёт тебя верно.',
-    suggestion: 'Исследуй пространство интерактивов — там есть инструменты для следующего шага',
+    description: 'Ты чувствуешь движение внутри. Что-то меняется, и ты готова. Доверься этому.',
+    suggestion: 'Исследуй интерактивы — там инструменты для следующего шага',
     link: '/interactives',
   },
 ];
@@ -127,20 +127,20 @@ export default function QuizShell({ onClose }: { onClose?: () => void }) {
 
   if (result) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 py-20 text-center">
-        <p className="text-mono text-muted-foreground mb-6">Твой результат</p>
-        <h2 className="heading-section mb-8 max-w-2xl">{result.title}</h2>
-        <p className="body-editorial text-muted-foreground max-w-xl mb-8">{result.description}</p>
-        <p className="text-sm text-accent mb-8">{result.suggestion}</p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          {result.link && (
-            <a href={result.link} className="px-8 py-3 bg-primary text-primary-foreground text-sm tracking-wide hover:bg-primary/80 transition-colors">
-              Перейти →
-            </a>
-          )}
-          <button onClick={() => { setStep(0); setScores({}); setResult(null); }} className="px-8 py-3 border border-border text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Пройти заново
-          </button>
+      <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 py-20">
+        <div className="max-w-2xl w-full border-[3px] border-primary bg-primary/5 p-8 md:p-12">
+          <p className="text-mono text-primary mb-6">Твой результат</p>
+          <h2 className="heading-section mb-8">{result.title}</h2>
+          <p className="body-editorial text-muted-foreground mb-6">{result.description}</p>
+          <p className="text-mono text-accent mb-8">{result.suggestion}</p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            {result.link && (
+              <a href={result.link} className="brutal-btn text-center">Перейти →</a>
+            )}
+            <button onClick={() => { setStep(0); setScores({}); setResult(null); }} className="brutal-btn-outline">
+              Пройти заново
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -152,26 +152,26 @@ export default function QuizShell({ onClose }: { onClose?: () => void }) {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 py-20">
       <div className="w-full max-w-2xl">
-        <div className="flex items-center justify-between mb-8">
-          <p className="text-mono text-muted-foreground">{step + 1} / {questions.length}</p>
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-mono text-primary">{step + 1} / {questions.length}</p>
           {step > 0 && (
-            <button onClick={() => setStep(step - 1)} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <button onClick={() => setStep(step - 1)} className="text-mono text-muted-foreground hover:text-foreground transition-colors">
               ← Назад
             </button>
           )}
         </div>
-        <div className="w-full h-px bg-border mb-12 relative">
-          <div className="absolute left-0 top-0 h-full bg-primary transition-all duration-500" style={{ width: `${progress}%` }} />
+        <div className="w-full h-[4px] bg-foreground/10 mb-12 relative">
+          <div className="absolute left-0 top-0 h-full bg-primary transition-all duration-300" style={{ width: `${progress}%` }} />
         </div>
         <h3 className="heading-section mb-12">{q.text}</h3>
-        <div className="space-y-4">
+        <div className="space-y-0">
           {q.answers.map((a, i) => (
             <button
               key={i}
               onClick={() => handleAnswer(a.scores)}
-              className="w-full text-left p-6 border border-border/50 hover:border-primary/50 hover:bg-card/50 transition-all duration-300 group"
+              className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group"
             >
-              <span className="body-editorial group-hover:text-foreground text-muted-foreground transition-colors">{a.text}</span>
+              <span className="text-lg font-bold group-hover:text-primary text-muted-foreground transition-colors">{a.text}</span>
             </button>
           ))}
         </div>

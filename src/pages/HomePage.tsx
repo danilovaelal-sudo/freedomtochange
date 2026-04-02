@@ -11,29 +11,29 @@ const manifestItems = [
   'можно начать заново',
   'можно сомневаться',
   'можно менять путь',
-  'можно не соответствовать ожиданиям',
+  'можно не соответствовать',
   'можно искать себя долго',
   'можно выбрать жизнь заново',
-  'не нужно быть «правильной», чтобы быть живой',
+  'не нужно быть «правильной»',
 ];
 
 const scenarios = [
   { title: 'я в точке перемен', text: 'Ты чувствуешь, что прежнее больше не подходит. Это не конец — это начало.' },
   { title: 'я после разрыва', text: 'Мир раскололся. Но именно в трещинах пробивается новый свет.' },
-  { title: 'я потеряла себя', text: 'Та, кем ты была, ушла. Та, кем ты станешь, ещё формируется. И это нормально.' },
+  { title: 'я потеряла себя', text: 'Та, кем ты была, ушла. Та, кем ты станешь, ещё формируется.' },
   { title: 'я боюсь, что опоздала', text: 'После 40 не поздно. Ни для любви, ни для смысла, ни для себя.' },
   { title: 'я хочу новую жизнь', text: 'Желание перемен — это не каприз. Это голос настоящей тебя.' },
   { title: 'я ищу смысл', text: 'Смысл не теряется. Он ждёт, пока ты остановишься и прислушаешься.' },
 ];
 
 const timeline = [
-  { year: '22', label: 'МГУ', desc: 'Красный диплом МГУ — и выбор, который никто не ожидал' },
-  { year: '22', label: 'Монастырь', desc: 'Уход в монастырь — 16 лет тишины, молитвы и внутренней работы' },
+  { year: '22', label: 'МГУ', desc: 'Красный диплом — и выбор, который никто не ожидал' },
+  { year: '22', label: 'Монастырь', desc: '16 лет тишины, молитвы и внутренней работы' },
   { year: '38', label: 'Возвращение', desc: 'Возвращение в мир накануне сорокалетия' },
-  { year: '40', label: 'Замужество', desc: 'Замужество — когда всё говорили «уже поздно»' },
-  { year: '41', label: 'Первый ребёнок', desc: 'Рождение первого ребёнка почти в 41 год' },
-  { year: '48', label: '4 детей', desc: 'Четверо детей за семь лет — каждый стал чудом' },
-  { year: '50', label: 'Книга', desc: 'Книга и новый путь — помощь женщинам в переходе' },
+  { year: '40', label: 'Замужество', desc: 'Когда все говорили «уже поздно»' },
+  { year: '41', label: 'Первый ребёнок', desc: 'Рождение первого ребёнка почти в 41' },
+  { year: '48', label: '4 детей', desc: 'Четверо детей за семь лет' },
+  { year: '50', label: 'Книга', desc: 'Книга и новый путь помощи женщинам' },
 ];
 
 const voices = [
@@ -71,22 +71,25 @@ function KineticLine({ text, index }: { text: string; index: number }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const sizeClass = index % 3 === 0
-    ? 'text-5xl md:text-7xl'
-    : index % 3 === 1
-    ? 'text-4xl md:text-6xl'
-    : 'text-3xl md:text-5xl';
+  const isLarge = index % 3 === 0;
+  const isMed = index % 3 === 1;
+  const sizeClass = isLarge
+    ? 'text-5xl md:text-8xl lg:text-9xl'
+    : isMed
+    ? 'text-4xl md:text-7xl'
+    : 'text-3xl md:text-6xl';
 
-  const xShift = (index % 2 === 0 ? -1 : 1) * (1 - progress) * 60;
+  const xShift = (index % 2 === 0 ? -1 : 1) * (1 - progress) * 80;
 
   return (
     <p
       ref={ref}
-      className={`font-serif leading-none mb-6 ${sizeClass} ${index % 2 === 0 ? '' : 'md:text-right'} transition-none`}
+      className={`font-black leading-[0.85] mb-4 uppercase tracking-tighter ${sizeClass} ${index % 2 === 0 ? '' : 'md:text-right'}`}
       style={{
-        opacity: 0.15 + progress * 0.85,
-        transform: `translateX(${xShift}px) scale(${0.95 + progress * 0.05})`,
-        color: `hsl(40 15% ${50 + progress * 43}%)`,
+        opacity: 0.08 + progress * 0.92,
+        transform: `translateX(${xShift}px)`,
+        color: progress > 0.5 ? `hsl(var(--primary))` : `hsl(var(--foreground) / ${0.1 + progress * 0.5})`,
+        transition: 'color 0.3s',
         willChange: 'transform, opacity',
       }}
     >
@@ -102,65 +105,74 @@ export default function HomePage() {
 
   return (
     <SiteLayout>
-      {/* Hero with parallax */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* HERO — Brutal poster */}
+      <section ref={heroRef} className="relative min-h-screen flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroBg}
             alt=""
-            className="w-full h-full object-cover opacity-40"
-            style={{ transform: `translateY(${heroOffset}px) scale(1.1)`, willChange: 'transform' }}
+            className="w-full h-full object-cover opacity-30 grayscale contrast-125"
+            style={{ transform: `translateY(${heroOffset}px) scale(1.15)`, willChange: 'transform' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center py-32">
-          <p className="text-mono text-muted-foreground mb-8 animate-fade-up">пространство для тех, кто ищет себя</p>
-          <h1 className="heading-display mb-8 animate-fade-up animation-delay-200">
-            ты не опоздала.<br />
-            <span className="text-gradient-gold">твоя история</span><br />
-            ещё продолжается.
+
+        {/* Giant decorative number */}
+        <div className="absolute top-20 right-6 md:right-16 text-stroke-primary opacity-20">
+          <span className="text-[12rem] md:text-[20rem] font-black leading-none tracking-tighter">40</span>
+        </div>
+
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 pb-20 pt-40">
+          <p className="text-mono text-primary mb-6 animate-fade-up">пространство для тех, кто ищет себя</p>
+          <h1 className="heading-display mb-6 animate-fade-up animation-delay-200 max-w-5xl">
+            ТЫ НЕ<br />
+            <span className="text-primary">ОПОЗДАЛА.</span><br />
+            <span className="text-stroke">ТВОЯ ИСТОРИЯ</span><br />
+            ЕЩЁ ПРОДОЛЖАЕТСЯ.
           </h1>
-          <p className="body-editorial text-muted-foreground max-w-xl mx-auto mb-12 animate-fade-up animation-delay-400">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-12 animate-fade-up animation-delay-400 font-light">
             Книга, интерактивное пространство и поддержка для женщин, которые ищут новый путь после 40.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up animation-delay-600">
-            <button onClick={() => setShowQuiz(true)} className="px-10 py-4 bg-primary text-primary-foreground text-sm tracking-widest uppercase hover:bg-primary/80 transition-colors">
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-up animation-delay-600">
+            <button onClick={() => setShowQuiz(true)} className="brutal-btn">
               Начать путь
             </button>
-            <Link to="/book" className="px-10 py-4 border border-border text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors">
+            <Link to="/book" className="brutal-btn-outline">
               Открыть книгу
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Kinetic Manifesto */}
-      <section className="py-32 px-6">
-        <div className="max-w-6xl mx-auto">
+      {/* MANIFESTO — Kinetic brutalist typography */}
+      <section className="py-24 md:py-40 px-6 border-t-[3px] border-foreground/10">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="text-mono text-primary mb-12">манифест</p>
           {manifestItems.map((item, i) => (
             <KineticLine key={i} text={item} index={i} />
           ))}
         </div>
       </section>
 
-      {/* Who are you now? */}
-      <section className="py-32 px-6 border-t border-border/20">
-        <div className="max-w-6xl mx-auto">
+      {/* WHO ARE YOU — Scenario cards */}
+      <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
+        <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <p className="text-mono text-muted-foreground mb-4">выбери своё состояние</p>
-            <h2 className="heading-large mb-16">Кто ты сейчас?</h2>
+            <p className="text-mono text-primary mb-4">выбери своё состояние</p>
+            <h2 className="heading-large mb-16">КТО ТЫ<br />СЕЙЧАС?</h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
             {scenarios.map((s, i) => (
-              <ScrollReveal key={i} delay={i * 80}>
+              <ScrollReveal key={i} delay={i * 60}>
                 <button
                   onClick={() => setActiveScenario(activeScenario === i ? null : i)}
-                  className={`w-full text-left p-8 border transition-all duration-500 group ${activeScenario === i ? 'border-primary bg-card' : 'border-border/30 hover:border-primary/30 hover:bg-card/30'}`}
+                  className={`w-full text-left p-8 border-[3px] -mt-[3px] -ml-[3px] transition-all duration-200 group ${activeScenario === i ? 'border-primary bg-primary/10' : 'border-foreground/10 hover:border-primary/50 hover:bg-card'}`}
                 >
-                  <h3 className="font-serif text-2xl mb-4 group-hover:text-foreground transition-colors">{s.title}</h3>
-                  <div className={`overflow-hidden transition-all duration-500 ${activeScenario === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{s.text}</p>
-                    <Link to="/interactives" className="inline-block mt-4 text-xs text-accent hover:text-accent/80 transition-colors">
+                  <span className="text-mono text-muted-foreground mb-3 block">0{i + 1}</span>
+                  <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-4 group-hover:text-primary transition-colors">{s.title}</h3>
+                  <div className={`overflow-hidden transition-all duration-300 ${activeScenario === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">{s.text}</p>
+                    <Link to="/interactives" className="text-mono text-primary hover:text-accent transition-colors">
                       Исследовать →
                     </Link>
                   </div>
@@ -171,60 +183,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Author Timeline */}
-      <section className="py-32 px-6 border-t border-border/20">
-        <div className="max-w-5xl mx-auto">
+      {/* TIMELINE — Author story */}
+      <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10 bg-card/30">
+        <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <p className="text-mono text-muted-foreground mb-4">история автора</p>
-            <h2 className="heading-large mb-20">Путь, который нельзя <span className="italic">запланировать</span></h2>
+            <p className="text-mono text-primary mb-4">история автора</p>
+            <h2 className="heading-large mb-20">ПУТЬ, КОТОРЫЙ<br />НЕЛЬЗЯ<br /><span className="text-stroke-primary">ЗАПЛАНИРОВАТЬ</span></h2>
           </ScrollReveal>
-          <div className="relative">
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-border/30" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
             {timeline.map((item, i) => (
-              <ScrollReveal key={i} delay={i * 120}>
-                <div className={`relative flex items-start gap-8 mb-16 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                  <div className={`flex-1 ${i % 2 === 0 ? 'md:text-right md:pr-16' : 'md:text-left md:pl-16'} pl-20 md:pl-0`}>
-                    <span className="font-serif text-6xl md:text-8xl text-primary/30 leading-none block mb-2">{item.year}</span>
-                    <h3 className="font-serif text-2xl mb-2">{item.label}</h3>
-                    <p className="text-muted-foreground text-sm">{item.desc}</p>
-                  </div>
-                  <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background" />
-                  <div className="flex-1 hidden md:block" />
+              <ScrollReveal key={i} delay={i * 80}>
+                <div className="border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] p-8 hover:border-primary/30 transition-colors group">
+                  <span className="font-black text-7xl md:text-8xl text-primary/20 leading-none block mb-4 group-hover:text-primary/40 transition-colors">{item.year}</span>
+                  <h3 className="font-black text-lg uppercase tracking-tight mb-2">{item.label}</h3>
+                  <p className="text-muted-foreground text-sm">{item.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
           </div>
           <ScrollReveal>
-            <div className="text-center mt-8">
-              <Link to="/author" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Читать полную историю →
+            <div className="mt-12">
+              <Link to="/author" className="brutal-btn-outline inline-block">
+                Полная история →
               </Link>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Main Quiz */}
+      {/* QUIZ */}
       {showQuiz && (
-        <section className="py-16 px-6 border-t border-border/20" id="quiz">
+        <section className="py-16 px-6 border-t-[3px] border-primary" id="quiz">
           <div className="max-w-4xl mx-auto">
-            <p className="text-mono text-muted-foreground mb-4 text-center">интерактив</p>
-            <h2 className="heading-large text-center mb-8">Где я сейчас на своём пути?</h2>
+            <p className="text-mono text-primary mb-4 text-center">интерактив</p>
+            <h2 className="heading-large text-center mb-8">ГДЕ Я СЕЙЧАС?</h2>
             <QuizShell />
           </div>
         </section>
       )}
 
       {!showQuiz && (
-        <section className="py-32 px-6 border-t border-border/20">
+        <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
           <ScrollReveal>
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="text-mono text-muted-foreground mb-4">интерактив</p>
-              <h2 className="heading-large mb-8">Где я сейчас на своём пути?</h2>
-              <p className="body-editorial text-muted-foreground mb-12">
-                Пять вопросов, которые помогут остановиться и прислушаться к себе. Без регистрации, без сохранения данных.
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-mono text-primary mb-4">интерактив</p>
+              <h2 className="heading-large mb-8">ГДЕ Я СЕЙЧАС<br />НА СВОЁМ ПУТИ?</h2>
+              <p className="text-muted-foreground text-lg mb-12 max-w-xl mx-auto">
+                Пять вопросов, которые помогут остановиться и прислушаться к себе. Без регистрации.
               </p>
-              <button onClick={() => setShowQuiz(true)} className="px-10 py-4 bg-primary text-primary-foreground text-sm tracking-widest uppercase hover:bg-primary/80 transition-colors">
+              <button onClick={() => setShowQuiz(true)} className="brutal-btn">
                 Начать тест
               </button>
             </div>
@@ -232,33 +239,33 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Book Preview */}
-      <section className="py-32 px-6 border-t border-border/20">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <ScrollReveal>
-              <div className="relative">
-                <img src={bookCover} alt="Почему после 40 не поздно" className="w-full max-w-sm mx-auto shadow-2xl" loading="lazy" width={640} height={960} />
+      {/* BOOK */}
+      <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 items-stretch">
+            <ScrollReveal className="lg:col-span-2">
+              <div className="border-[3px] border-foreground/20 p-4 bg-card h-full flex items-center justify-center">
+                <img src={bookCover} alt="Почему после 40 не поздно" className="w-full max-w-sm grayscale hover:grayscale-0 transition-all duration-500" loading="lazy" width={640} height={960} />
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={200}>
-              <div>
-                <p className="text-mono text-muted-foreground mb-4">книга</p>
-                <h2 className="heading-large mb-8">Почему после 40<br /><span className="italic">не поздно</span></h2>
-                <blockquote className="border-l-2 border-wine pl-6 mb-8">
-                  <p className="font-serif text-xl italic text-muted-foreground leading-relaxed">
+            <ScrollReveal delay={200} className="lg:col-span-3">
+              <div className="border-[3px] border-foreground/20 -ml-0 lg:-ml-[3px] p-8 md:p-12 h-full flex flex-col justify-center">
+                <p className="text-mono text-primary mb-4">книга</p>
+                <h2 className="heading-large mb-8">ПОЧЕМУ<br />ПОСЛЕ 40<br /><span className="text-primary">НЕ ПОЗДНО</span></h2>
+                <blockquote className="border-l-[4px] border-primary pl-6 mb-8">
+                  <p className="text-lg italic text-muted-foreground leading-relaxed">
                     «Я собираюсь рассказать историю женщины, которая в 22 года откладывает красный диплом МГУ и выбирает жизнь в монастыре...»
                   </p>
                 </blockquote>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-8">
-                  Книга о том, как жизнь может развернуться самым неожиданным образом, если слушать себя и не бояться перемен. Личная история, ставшая опорой для тысяч женщин.
+                  Книга о том, как жизнь может развернуться неожиданно, если слушать себя и не бояться перемен.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/book" className="px-8 py-3 bg-primary text-primary-foreground text-sm tracking-wide hover:bg-primary/80 transition-colors text-center">
+                  <Link to="/book" className="brutal-btn text-center">
                     Читать о книге
                   </Link>
-                  <Link to="/book#fragment" className="px-8 py-3 border border-border text-sm text-muted-foreground hover:text-foreground transition-colors text-center">
-                    Прочитать фрагмент
+                  <Link to="/book#fragment" className="brutal-btn-outline text-center">
+                    Фрагмент
                   </Link>
                 </div>
               </div>
@@ -267,34 +274,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Voices Ticker */}
-      <section className="py-16 border-t border-b border-border/20 overflow-hidden">
-        <div className="animate-ticker whitespace-nowrap flex gap-16">
+      {/* VOICES TICKER */}
+      <section className="py-8 border-t-[3px] border-b-[3px] border-primary overflow-hidden bg-primary">
+        <div className="animate-ticker whitespace-nowrap flex gap-12">
           {[...voices, ...voices].map((v, i) => (
-            <span key={i} className="font-serif text-xl text-muted-foreground/60 inline-block">{v}</span>
+            <span key={i} className="font-black text-lg md:text-xl text-primary-foreground uppercase tracking-tight inline-block">{v}</span>
           ))}
         </div>
       </section>
 
-      {/* Self-discovery block */}
-      <section className="py-32 px-6">
-        <div className="max-w-6xl mx-auto">
+      {/* EXPLORE */}
+      <section className="py-24 md:py-32 px-6">
+        <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <p className="text-mono text-muted-foreground mb-4">пространство для себя</p>
-            <h2 className="heading-large mb-16">Исследуй себя</h2>
+            <p className="text-mono text-primary mb-4">пространство для себя</p>
+            <h2 className="heading-large mb-16">ИССЛЕДУЙ<br /><span className="text-stroke">СЕБЯ</span></h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
             {[
               { title: 'Тесты', desc: 'Узнай, где ты сейчас', link: '/interactives' },
               { title: 'Карта перехода', desc: 'Визуализируй свой путь', link: '/interactives' },
               { title: 'Письмо из будущего', desc: 'Напиши себе через 5 лет', link: '/interactives' },
               { title: 'Дневник', desc: 'Размышления и поддержка', link: '/journal' },
               { title: 'История автора', desc: 'Путь, который вдохновляет', link: '/author' },
-              { title: 'Книга', desc: 'Главное произведение проекта', link: '/book' },
+              { title: 'Книга', desc: 'Главное произведение', link: '/book' },
             ].map((item, i) => (
-              <ScrollReveal key={i} delay={i * 80}>
-                <Link to={item.link} className="block p-8 border border-border/30 hover:border-primary/30 hover:bg-card/30 transition-all duration-300 group">
-                  <h3 className="font-serif text-xl mb-2 group-hover:text-foreground transition-colors">{item.title}</h3>
+              <ScrollReveal key={i} delay={i * 60}>
+                <Link to={item.link} className="block p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group">
+                  <span className="text-mono text-muted-foreground mb-2 block">0{i + 1}</span>
+                  <h3 className="font-black text-xl uppercase tracking-tight mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
                 </Link>
               </ScrollReveal>
@@ -303,21 +311,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Soft CTA */}
-      <section className="py-32 px-6 border-t border-border/20">
+      {/* SOFT CTA */}
+      <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
         <ScrollReveal>
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto">
             <h2 className="heading-section mb-8">
-              Если тебе нужен не только внутренний отклик, но и <span className="italic">личный маршрут</span>
+              ЕСЛИ ТЕБЕ НУЖЕН<br />НЕ ТОЛЬКО ОТКЛИК,<br />НО И <span className="text-primary">ЛИЧНЫЙ МАРШРУТ</span>
             </h2>
-            <p className="text-muted-foreground mb-12">
+            <p className="text-muted-foreground text-lg mb-12 max-w-xl">
               У меня есть формат глубокой индивидуальной работы. Без давления, без обещаний волшебства. Просто — рядом.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/support" className="px-8 py-3 border border-border text-sm text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link to="/support" className="brutal-btn-outline text-center">
                 Узнать о сопровождении
               </Link>
-              <Link to="/support#form" className="px-8 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/support#form" className="text-mono text-muted-foreground hover:text-primary transition-colors py-4">
                 Оставить запрос →
               </Link>
             </div>
