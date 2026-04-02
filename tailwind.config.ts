@@ -34,6 +34,7 @@ export default {
         graphite: "hsl(var(--graphite))",
         cream: "hsl(var(--cream))",
         gold: "hsl(var(--gold))",
+        concrete: { DEFAULT: "hsl(var(--concrete))", light: "hsl(var(--concrete-light))" },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
