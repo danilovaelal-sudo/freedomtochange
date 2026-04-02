@@ -33,7 +33,7 @@ export default function SupportPage() {
             <p className="text-mono text-primary mb-6">если тебе нужно больше</p>
             <h1 className="heading-display mb-8 max-w-4xl">ЛИЧНЫЙ<br /><span className="text-primary">МАРШРУТ</span></h1>
             <p className="body-editorial text-muted-foreground max-w-xl mb-20">
-              Иногда книги и тестов недостаточно. Иногда нужен живой человек рядом.
+              Иногда книги недостаточно. Иногда нужен живой человек рядом.
             </p>
           </ScrollReveal>
 
@@ -101,7 +101,7 @@ export default function SupportPage() {
                     </div>
                     <div>
                       <label className="text-mono text-muted-foreground block mb-2">Способ связи</label>
-                      <input {...register('contact')} className="w-full bg-transparent border-[3px] border-foreground/20 p-4 text-foreground font-bold focus:outline-none focus:border-primary transition-colors" placeholder="Telegram, WhatsApp, email..." />
+                      <input {...register('contact')} className="w-full bg-transparent border-[3px] border-foreground/20 p-4 text-foreground font-bold focus:outline-none focus:border-primary transition-colors" placeholder="Telegram, ВКонтакте, email..." />
                       {errors.contact && <p className="text-sm text-destructive mt-2 font-bold">{errors.contact.message}</p>}
                     </div>
                     <div>

@@ -1,18 +1,27 @@
 import SiteLayout from '@/components/SiteLayout';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import QuizShell from '@/components/QuizShell';
 
 const interactives = [
-  { id: 'path-quiz', title: 'Где я сейчас на пути перемен', type: 'тест', desc: 'Пять вопросов, которые помогут остановиться и прислушаться' },
-  { id: 'blocks-quiz', title: 'Что удерживает меня от новой жизни', type: 'тест', desc: 'Исследуй внутренние барьеры без оценки' },
-  { id: 'future-quiz', title: 'Какой сценарий будущего мне ближе', type: 'тест', desc: 'Посмотри на возможные пути' },
-  { id: 'suppressed-quiz', title: 'Что я давно в себе подавляю', type: 'тест', desc: 'Мягкое исследование подавленного' },
-  { id: 'map', title: 'Карта моего перехода', type: 'интерактив', desc: 'Состояние → препятствие → ресурс → шаг' },
-  { id: 'letter', title: 'Письмо себе из будущего', type: 'интерактив', desc: 'Guided experience от будущей тебя' },
-  { id: 'awakening', title: 'Что во мне просыпается сейчас', type: 'интерактив', desc: 'Исследование того, что зреет внутри' },
+  { id: 'path-quiz', title: 'Где я сейчас на пути перемен', type: 'погружение', desc: 'Пять вопросов, которые помогут остановиться и прислушаться' },
+  { id: 'blocks-quiz', title: 'Что удерживает меня от новой жизни', type: 'погружение', desc: 'Исследуй внутренние барьеры без оценки' },
+  { id: 'future-quiz', title: 'Какой сценарий будущего мне ближе', type: 'погружение', desc: 'Посмотри на возможные пути' },
+  { id: 'suppressed-quiz', title: 'Что я давно в себе подавляю', type: 'погружение', desc: 'Мягкое исследование подавленного' },
+  { id: 'map', title: 'Карта моего перехода', type: 'практика', desc: 'Состояние → препятствие → ресурс → шаг' },
+  { id: 'letter', title: 'Письмо себе из будущего', type: 'практика', desc: 'Guided experience от будущей тебя' },
+  { id: 'awakening', title: 'Что во мне просыпается сейчас', type: 'погружение', desc: 'Исследование того, что зреет внутри' },
 ];
+
+const bookQuotes: Record<string, string> = {
+  'path-quiz': '«Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять.»',
+  'blocks-quiz': '«Монастырь был запрещенной темой для меня 10 лет точно после того, как я вернулась к прежней жизни.»',
+  'future-quiz': '«Мне не хватило вот того времени беззаботности и свободы, когда можно все пробовать и не бояться ошибиться.»',
+  'suppressed-quiz': '«С появлением Бога в моей жизни просто появилась другая Любовь. Я постепенно внедряла в свою жизнь все, что приближало меня к Богу.»',
+  'map': '«Что так повлияло на мое решение вот так отважно и бесповоротно поменять свою жизнь?»',
+  'letter': '«Было желание жить, как святые отцы пишут, отсекая все лишнее, мирское, все свое время посвящая молитве.»',
+  'awakening': '«Я никогда не была серой мышью. Да, серьезная и молчаливая, но не замкнутая и нелюдимая.»',
+};
 
 const bookExcerpt = '«Некоторые истории вызывают у нас особое удивление и захватывают необычными почти нереальными приключениями.»';
 
@@ -23,7 +32,7 @@ function TransitionMap() {
     { title: 'Моё состояние сейчас', options: ['Растерянность', 'Тревога', 'Тихая надежда', 'Усталость', 'Злость', 'Опустошённость'] },
     { title: 'Что мешает двигаться', options: ['Страх неизвестности', 'Чужие ожидания', 'Вина и стыд', 'Нет поддержки', 'Неверие в себя', 'Привычка терпеть'] },
     { title: 'Мой ресурс', options: ['Внутренняя сила', 'Вера', 'Желание перемен', 'Любовь к близким', 'Творчество', 'Усталость от прежнего'] },
-    { title: 'Мой следующий шаг', options: ['Остановиться', 'Поговорить', 'Прочитать книгу', 'Пройти тест', 'Написать письмо', 'Подышать'] },
+    { title: 'Мой следующий шаг', options: ['Остановиться', 'Поговорить', 'Прочитать книгу', 'Пройти практику', 'Написать письмо', 'Подышать'] },
   ];
 
   if (step >= steps.length) {
@@ -123,6 +132,165 @@ function FutureLetter() {
   );
 }
 
+/* Quiz: What holds me back */
+function BlocksQuiz() {
+  const [step, setStep] = useState(0);
+  const [scores, setScores] = useState<number[]>([]);
+  const questions = [
+    { q: 'Когда ты думаешь о переменах, первое чувство?', opts: ['Страх', 'Вина', 'Возбуждение', 'Пустота'] },
+    { q: 'Чей голос ты слышишь, когда хочешь что-то изменить?', opts: ['Мамы', 'Партнёра', 'Подруги', 'Свой собственный'] },
+    { q: 'Что ты обычно делаешь с болью?', opts: ['Терплю', 'Отвлекаюсь', 'Плачу', 'Анализирую'] },
+    { q: 'Что для тебя страшнее?', opts: ['Остаться как есть', 'Измениться и потерять всё', 'Не суметь', 'Быть осуждённой'] },
+  ];
+  const results = ['Тебя держит страх неизвестности. Это нормально — но за ним свобода.', 'Чужие голоса громче твоего. Пора учиться слышать себя.', 'Ты привыкла не чувствовать. Дай себе разрешение на боль.', 'Ты боишься чужого суда. Но твоя жизнь — только твоя.'];
+
+  if (step >= questions.length) {
+    const maxIdx = scores.indexOf(Math.max(...scores));
+    return (
+      <div className="py-16 max-w-2xl">
+        <h3 className="heading-section mb-8">ТВОЙ РЕЗУЛЬТАТ</h3>
+        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+          <p className="text-foreground text-lg font-bold">{results[maxIdx] || results[0]}</p>
+        </div>
+        <button onClick={() => { setStep(0); setScores([]); }} className="brutal-btn-outline">Пройти заново</button>
+      </div>
+    );
+  }
+
+  const current = questions[step];
+  return (
+    <div className="py-16 max-w-2xl">
+      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
+      <h3 className="heading-section mb-8">{current.q}</h3>
+      <div className="space-y-0">
+        {current.opts.map((opt, i) => (
+          <button key={i} onClick={() => { setScores([...scores, i]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+            <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Quiz: Future scenario */
+function FutureQuiz() {
+  const [step, setStep] = useState(0);
+  const [picks, setPicks] = useState<string[]>([]);
+  const questions = [
+    { q: 'Через 3 года я хочу...', opts: ['Тишины и покоя', 'Новых отношений', 'Своего дела', 'Полной свободы'] },
+    { q: 'Что для меня важнее?', opts: ['Стабильность', 'Развитие', 'Любовь', 'Творчество'] },
+    { q: 'Я готова ради перемен...', opts: ['Рискнуть всем', 'Идти маленькими шагами', 'Попросить помощь', 'Пока не знаю'] },
+  ];
+
+  if (step >= questions.length) {
+    return (
+      <div className="py-16 max-w-2xl">
+        <h3 className="heading-section mb-8">ТВОЙ СЦЕНАРИЙ</h3>
+        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+          <p className="text-foreground text-lg font-bold mb-4">Ты выбираешь: {picks.join(' → ')}</p>
+          <p className="text-muted-foreground">Твой путь уже начался. Каждый выбор — это шаг вперёд, даже если кажется, что ты стоишь на месте.</p>
+        </div>
+        <button onClick={() => { setStep(0); setPicks([]); }} className="brutal-btn-outline">Пройти заново</button>
+      </div>
+    );
+  }
+
+  const current = questions[step];
+  return (
+    <div className="py-16 max-w-2xl">
+      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
+      <h3 className="heading-section mb-8">{current.q}</h3>
+      <div className="space-y-0">
+        {current.opts.map((opt, i) => (
+          <button key={i} onClick={() => { setPicks([...picks, opt]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+            <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Quiz: What I suppress */
+function SuppressedQuiz() {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<string[]>([]);
+  const questions = [
+    { q: 'Что ты чаще всего скрываешь от окружающих?', opts: ['Злость', 'Грусть', 'Амбиции', 'Нежность'] },
+    { q: 'Когда ты последний раз кричала?', opts: ['Не помню', 'Вчера', 'Давно', 'Я не кричу'] },
+    { q: 'Что ты не позволяешь себе?', opts: ['Отдых', 'Ошибки', 'Желания', 'Быть слабой'] },
+    { q: 'Какое чувство ты считаешь «неправильным»?', opts: ['Зависть', 'Ярость', 'Влечение', 'Безразличие'] },
+  ];
+
+  if (step >= questions.length) {
+    return (
+      <div className="py-16 max-w-2xl">
+        <h3 className="heading-section mb-8">ТО, ЧТО ТЫ ПРЯЧЕШЬ</h3>
+        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+          <p className="text-foreground text-lg font-bold mb-4">Ты подавляешь: {answers.join(', ').toLowerCase()}</p>
+          <p className="text-muted-foreground">Каждое подавленное чувство — это часть тебя, которая просит внимания. Не суда, а внимания.</p>
+        </div>
+        <button onClick={() => { setStep(0); setAnswers([]); }} className="brutal-btn-outline">Пройти заново</button>
+      </div>
+    );
+  }
+
+  const current = questions[step];
+  return (
+    <div className="py-16 max-w-2xl">
+      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
+      <h3 className="heading-section mb-8">{current.q}</h3>
+      <div className="space-y-0">
+        {current.opts.map((opt, i) => (
+          <button key={i} onClick={() => { setAnswers([...answers, opt]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+            <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Quiz: Awakening */
+function AwakeningQuiz() {
+  const [step, setStep] = useState(0);
+  const [picks, setPicks] = useState<string[]>([]);
+  const questions = [
+    { q: 'Что тебе снится в последнее время?', opts: ['Дорога', 'Вода', 'Полёт', 'Темнота'] },
+    { q: 'Что ты замечаешь чаще?', opts: ['Красоту вокруг', 'Раздражение', 'Тоску', 'Энергию'] },
+    { q: 'Что тебя тянет?', opts: ['Уехать', 'Создавать', 'Молчать', 'Говорить'] },
+  ];
+
+  if (step >= questions.length) {
+    return (
+      <div className="py-16 max-w-2xl">
+        <h3 className="heading-section mb-8">ЧТО ПРОСЫПАЕТСЯ</h3>
+        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+          <p className="text-foreground text-lg font-bold mb-4">В тебе просыпается: {picks.join(' + ').toLowerCase()}</p>
+          <p className="text-muted-foreground">Это не случайность. Это ты — настоящая, под слоем привычного. Она уже здесь.</p>
+        </div>
+        <button onClick={() => { setStep(0); setPicks([]); }} className="brutal-btn-outline">Пройти заново</button>
+      </div>
+    );
+  }
+
+  const current = questions[step];
+  return (
+    <div className="py-16 max-w-2xl">
+      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
+      <h3 className="heading-section mb-8">{current.q}</h3>
+      <div className="space-y-0">
+        {current.opts.map((opt, i) => (
+          <button key={i} onClick={() => { setPicks([...picks, opt]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+            <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function InteractivesPage() {
   const [active, setActive] = useState<string | null>(null);
 
@@ -131,14 +299,13 @@ export default function InteractivesPage() {
       <section className="py-24 md:py-32 px-6">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <p className="text-mono text-primary mb-6">интерактивы</p>
+            <p className="text-mono text-primary mb-6">пространство</p>
             <h1 className="heading-display mb-8 max-w-4xl">ЛАБОРАТОРИЯ<br /><span className="text-stroke">ВНУТРЕННЕГО</span><br /><span className="text-primary">ДВИЖЕНИЯ</span></h1>
             <p className="body-editorial text-muted-foreground max-w-xl mb-12">
               Пространство, где можно остановиться и исследовать себя. Без регистрации. Только ты и твои ответы.
             </p>
           </ScrollReveal>
 
-          {/* Book excerpt interlude */}
           {!active && (
             <ScrollReveal delay={100}>
               <div className="mb-16 border-l-[6px] border-primary pl-8 py-4">
@@ -154,13 +321,13 @@ export default function InteractivesPage() {
                 <ScrollReveal key={item.id} delay={i * 80}>
                   <button
                     onClick={() => setActive(item.id)}
-                    className="w-full text-left p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group active:translate-x-[2px] active:translate-y-[2px]"
+                    className="hover-brutal w-full text-left p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] group active:translate-x-[2px] active:translate-y-[2px]"
                   >
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-mono text-primary">{item.type}</span>
                       <span className="text-mono text-muted-foreground">0{i + 1}</span>
                     </div>
-                    <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-3 group-hover:text-primary transition-colors">{item.title}</h3>
+                    <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-3 transition-colors">{item.title}</h3>
                     <p className="text-sm text-muted-foreground">{item.desc}</p>
                   </button>
                 </ScrollReveal>
@@ -171,20 +338,24 @@ export default function InteractivesPage() {
           {active && (
             <div>
               <button onClick={() => setActive(null)} className="text-mono text-muted-foreground hover:text-primary transition-colors mb-8">
-                ← Вернуться к списку
+                ← Вернуться к пространству
               </button>
               <h2 className="heading-section mb-4">{interactives.find(i => i.id === active)?.title}</h2>
-
-              {active === 'path-quiz' && <QuizShell />}
-              {active === 'map' && <TransitionMap />}
-              {active === 'letter' && <FutureLetter />}
-
-              {!['path-quiz', 'map', 'letter'].includes(active) && (
-                <div className="py-16 border-[3px] border-foreground/10 p-12 text-center mt-8">
-                  <p className="text-muted-foreground mb-8 text-lg">Этот интерактив скоро будет доступен.</p>
-                  <button onClick={() => setActive(null)} className="brutal-btn-outline">Вернуться</button>
+              
+              {bookQuotes[active] && (
+                <div className="mb-8 border-l-[6px] border-primary pl-8 py-4 bg-primary/5">
+                  <p className="italic text-muted-foreground text-sm">{bookQuotes[active]}</p>
+                  <p className="text-mono text-primary text-xs mt-2">— из книги «Почему после 40 не поздно»</p>
                 </div>
               )}
+
+              {active === 'path-quiz' && <QuizShell />}
+              {active === 'blocks-quiz' && <BlocksQuiz />}
+              {active === 'future-quiz' && <FutureQuiz />}
+              {active === 'suppressed-quiz' && <SuppressedQuiz />}
+              {active === 'map' && <TransitionMap />}
+              {active === 'letter' && <FutureLetter />}
+              {active === 'awakening' && <AwakeningQuiz />}
             </div>
           )}
         </div>

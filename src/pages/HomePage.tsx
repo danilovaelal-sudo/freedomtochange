@@ -4,7 +4,7 @@ import { useParallax } from '@/hooks/useParallax';
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
-import bookCover from '@/assets/book-cover.jpg';
+import bookCover from '@/assets/book-cover.png';
 import QuizShell from '@/components/QuizShell';
 
 const manifestItems = [
@@ -18,20 +18,44 @@ const manifestItems = [
 ];
 
 const scenarios = [
-  { title: 'я в точке перемен', text: 'Ты чувствуешь, что прежнее больше не подходит. Это не конец — это начало.' },
-  { title: 'я после разрыва', text: 'Мир раскололся. Но именно в трещинах пробивается новый свет.' },
-  { title: 'я потеряла себя', text: 'Та, кем ты была, ушла. Та, кем ты станешь, ещё формируется.' },
-  { title: 'я боюсь перемен', text: 'Страх — это не слабость. Это знак, что ты готова к чему-то большему.' },
-  { title: 'я хочу новую жизнь', text: 'Желание перемен — это не каприз. Это голос настоящей тебя.' },
-  { title: 'я ищу смысл', text: 'Смысл не теряется. Он ждёт, пока ты остановишься и прислушаешься.' },
+  {
+    title: 'я в точке перемен',
+    text: 'Ты чувствуешь, что прежнее больше не подходит. Это не конец — это начало.',
+    quote: '«Безусловно, каждый человек уникален и любая жизнь полна событий и опасных поворотов. Но некоторые истории вызывают у нас особое удивление.»'
+  },
+  {
+    title: 'я после разрыва',
+    text: 'Мир раскололся. Но именно в трещинах пробивается новый свет.',
+    quote: '«Я никогда не была серой мышью. Да, серьезная и молчаливая, но не замкнутая и нелюдимая, какими представляют девушек, уходящих в монастырь.»'
+  },
+  {
+    title: 'я потеряла себя',
+    text: 'Та, кем ты была, ушла. Та, кем ты станешь, ещё формируется.',
+    quote: '«Мне не хватило вот того времени беззаботности и свободы, когда можно все пробовать и не бояться ошибиться. Я не догуляла, не дотанцевала, не довлюблялась.»'
+  },
+  {
+    title: 'я боюсь перемен',
+    text: 'Страх — это не слабость. Это знак, что ты готова к чему-то большему.',
+    quote: '«С появлением Бога в моей жизни просто появилась другая Любовь. Я постепенно внедряла в свою жизнь все, что приближало меня к Богу.»'
+  },
+  {
+    title: 'я хочу новую жизнь',
+    text: 'Желание перемен — это не каприз. Это голос настоящей тебя.',
+    quote: '«Что так повлияло на мое решение вот так отважно и бесповоротно поменять свою жизнь?»'
+  },
+  {
+    title: 'я ищу смысл',
+    text: 'Смысл не теряется. Он ждёт, пока ты остановишься и прислушаешься.',
+    quote: '«Было желание жить, как святые отцы пишут, отсекая все лишнее, мирское, все свое время посвящая молитве.»'
+  },
 ];
 
 const bookExcerpts = [
   '«Безусловно, каждый человек уникален и любая жизнь полна событий и опасных поворотов. Но некоторые истории вызывают у нас особое удивление и захватывают необычными почти нереальными приключениями.»',
   '«Монастырь был запрещенной темой для меня 10 лет точно после того, как я вернулась к прежней жизни. Я не могла говорить об этом даже с мужем.»',
   '«Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять.»',
-  '«Иногда нужно потерять всё, чтобы найти себя. Не ту, которую ждут другие, а настоящую.»',
-  '«Путь — это не прямая линия. Это лабиринт, в котором каждый тупик учит чему-то важному.»',
+  '«Мне не хватило вот того времени беззаботности и свободы, когда можно все пробовать и не бояться ошибиться.»',
+  '«Я никогда не была серой мышью. Да, серьезная и молчаливая, но не замкнутая и нелюдимая.»',
 ];
 
 const timeline = [
@@ -155,11 +179,11 @@ export default function HomePage() {
             ЕЩЁ ПРОДОЛЖАЕТСЯ.
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-12 animate-fade-up animation-delay-400 font-light">
-            Книга, интерактивное пространство и поддержка для женщин, которые ищут новый путь.
+            Книга, пространство и поддержка для женщин, которые ищут новый путь.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-up animation-delay-600">
             <button onClick={() => setShowQuiz(true)} className="brutal-btn">
-              Начать путь
+              Посмотреть внутрь
             </button>
             <Link to="/book" className="brutal-btn-outline">
               Открыть книгу
@@ -191,7 +215,7 @@ export default function HomePage() {
       <section className="py-24 md:py-32 px-6">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <p className="text-mono text-primary mb-4">выбери своё состояние</p>
+            <p className="text-mono text-primary mb-4">нажми и почувствуй</p>
             <h2 className="heading-large mb-16">КТО ТЫ<br />СЕЙЧАС?</h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
@@ -203,9 +227,12 @@ export default function HomePage() {
                 >
                   <span className="text-mono text-muted-foreground mb-3 block">0{i + 1}</span>
                   <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-4 transition-colors">{s.title}</h3>
-                  <div className={`overflow-hidden transition-all duration-300 ${activeScenario === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className={`overflow-hidden transition-all duration-300 ${activeScenario === i ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">{s.text}</p>
-                    <Link to="/interactives" className="text-mono text-primary hover:text-foreground transition-colors">Исследовать →</Link>
+                    <blockquote className="border-l-[4px] border-primary pl-4 mb-4">
+                      <p className="text-xs italic text-primary/80">{s.quote}</p>
+                    </blockquote>
+                    <Link to="/interactives" className="text-mono text-primary hover:text-foreground transition-colors">Погрузиться глубже →</Link>
                   </div>
                 </button>
               </ScrollReveal>
@@ -227,7 +254,7 @@ export default function HomePage() {
       {showQuiz ? (
         <section className="py-16 px-6 border-t-[3px] border-primary" id="quiz">
           <div className="max-w-4xl mx-auto">
-            <p className="text-mono text-primary mb-4 text-center">интерактив</p>
+            <p className="text-mono text-primary mb-4 text-center">заглянуть в себя</p>
             <h2 className="heading-large text-center mb-8">ГДЕ Я СЕЙЧАС?</h2>
             <QuizShell />
           </div>
@@ -236,13 +263,13 @@ export default function HomePage() {
         <section className="py-24 md:py-32 px-6 border-t-[3px] border-foreground/10">
           <ScrollReveal>
             <div className="max-w-4xl mx-auto text-center">
-              <p className="text-mono text-primary mb-4">интерактив</p>
+              <p className="text-mono text-primary mb-4">заглянуть в себя</p>
               <h2 className="heading-large mb-8">ГДЕ Я СЕЙЧАС<br />НА СВОЁМ ПУТИ?</h2>
               <p className="text-muted-foreground text-lg mb-12 max-w-xl mx-auto">
                 Пять вопросов, которые помогут остановиться и прислушаться к себе. Без регистрации.
               </p>
               <button onClick={() => setShowQuiz(true)} className="brutal-btn animate-pulse-border">
-                Начать тест
+                Посмотреть внутрь
               </button>
             </div>
           </ScrollReveal>
@@ -265,9 +292,12 @@ export default function HomePage() {
                 >
                   <span className="text-mono text-muted-foreground mb-3 block">0{i + 4}</span>
                   <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-4 transition-colors">{s.title}</h3>
-                  <div className={`overflow-hidden transition-all duration-300 ${activeScenario === i + 3 ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className={`overflow-hidden transition-all duration-300 ${activeScenario === i + 3 ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">{s.text}</p>
-                    <Link to="/interactives" className="text-mono text-primary hover:text-foreground transition-colors">Исследовать →</Link>
+                    <blockquote className="border-l-[4px] border-primary pl-4 mb-4">
+                      <p className="text-xs italic text-primary/80">{s.quote}</p>
+                    </blockquote>
+                    <Link to="/interactives" className="text-mono text-primary hover:text-foreground transition-colors">Погрузиться глубже →</Link>
                   </div>
                 </button>
               </ScrollReveal>
@@ -326,13 +356,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 items-stretch">
             <ScrollReveal className="lg:col-span-2">
               <div className="border-[3px] border-foreground/20 p-4 bg-card h-full flex items-center justify-center group overflow-hidden hover-brutal">
-                <img src={bookCover} alt="Книга Не поздно" className="w-full max-w-sm grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" loading="lazy" width={640} height={960} />
+                <img src={bookCover} alt="Почему после 40 не поздно. И есть ли жизнь после монастыря?" className="w-full max-w-sm group-hover:scale-105 transition-all duration-700" loading="lazy" width={640} height={960} />
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200} className="lg:col-span-3">
               <div className="border-[3px] border-foreground/20 -ml-0 lg:-ml-[3px] p-8 md:p-12 h-full flex flex-col justify-center">
                 <p className="text-mono text-primary mb-4">книга</p>
-                <h2 className="heading-large mb-8">ПОЧЕМУ<br /><span className="text-primary">НЕ ПОЗДНО</span></h2>
+                <h2 className="heading-large mb-4">ПОЧЕМУ ПОСЛЕ 40<br /><span className="text-primary">НЕ ПОЗДНО</span></h2>
+                <p className="text-muted-foreground text-sm mb-6">И есть ли жизнь после монастыря?</p>
                 <blockquote className="border-l-[6px] border-primary pl-6 mb-8">
                   <p className="text-lg italic text-muted-foreground leading-relaxed">
                     «Я собираюсь рассказать историю женщины, которая в 22 года откладывает красный диплом МГУ и выбирает жизнь в монастыре...»
@@ -343,7 +374,7 @@ export default function HomePage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/book" className="brutal-btn text-center">Читать о книге</Link>
-                  <Link to="/book#fragment" className="brutal-btn-outline text-center">Фрагмент</Link>
+                  <a href="https://www.litres.ru/book/elena-danilova-32959/pochemu-posle-40-ka-ne-pozdno-i-est-li-zhizn-posle-mo-70398937/" target="_blank" rel="noopener noreferrer" className="brutal-btn-outline text-center">Электронная версия →</a>
                 </div>
               </div>
             </ScrollReveal>
@@ -378,12 +409,12 @@ export default function HomePage() {
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
             {[
-              { title: 'Тесты', desc: 'Узнай, где ты сейчас', link: '/interactives' },
+              { title: 'Загляни внутрь', desc: 'Узнай, где ты сейчас', link: '/interactives' },
               { title: 'Карта перехода', desc: 'Визуализируй свой путь', link: '/interactives' },
               { title: 'Письмо из будущего', desc: 'Напиши себе через 5 лет', link: '/interactives' },
-              { title: 'Дневник', desc: 'Размышления и поддержка', link: '/journal' },
+              { title: 'Дневник', desc: 'Размышления и голос автора', link: '/journal' },
               { title: 'История автора', desc: 'Путь, который вдохновляет', link: '/author' },
-              { title: 'Книга', desc: 'Главное произведение', link: '/book' },
+              { title: 'Книга', desc: 'Почему после 40 не поздно', link: '/book' },
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 80}>
                 <Link to={item.link} className="hover-brutal block p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] group">
