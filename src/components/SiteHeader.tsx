@@ -17,34 +17,34 @@ export default function SiteHeader() {
   const { pathname } = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/30">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b-[3px] border-foreground/20">
       <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="font-serif text-xl tracking-tight text-foreground hover:text-primary transition-colors">
-          после 40
+        <Link to="/" className="font-black text-xl tracking-tighter uppercase text-foreground hover:text-primary transition-colors">
+          ПОСЛЕ 40
         </Link>
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6">
           {navItems.map(item => (
             <Link
               key={item.path}
               to={item.path}
-              className={`text-sm tracking-wide transition-colors ${pathname === item.path ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              className={`text-xs font-bold tracking-widest uppercase transition-colors ${pathname === item.path ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {item.label}
             </Link>
           ))}
         </nav>
         <button onClick={() => setOpen(!open)} className="lg:hidden text-foreground" aria-label="Меню">
-          {open ? <X size={24} /> : <Menu size={24} />}
+          {open ? <X size={28} strokeWidth={3} /> : <Menu size={28} strokeWidth={3} />}
         </button>
       </div>
       {open && (
-        <nav className="lg:hidden bg-background/95 backdrop-blur-lg border-t border-border/30 px-6 py-8 space-y-6">
+        <nav className="lg:hidden bg-background border-t-[3px] border-foreground/20 px-6 py-8 space-y-4">
           {navItems.map(item => (
             <Link
               key={item.path}
               to={item.path}
               onClick={() => setOpen(false)}
-              className={`block font-serif text-2xl ${pathname === item.path ? 'text-foreground' : 'text-muted-foreground'}`}
+              className={`block font-black text-3xl uppercase tracking-tighter ${pathname === item.path ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {item.label}
             </Link>
