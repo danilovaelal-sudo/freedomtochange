@@ -30,8 +30,8 @@ export default function SiteFooter() {
           <div>
             <p className="text-mono text-muted-foreground mb-4">Связь</p>
             <div className="space-y-3">
-              <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Telegram</a>
-              <a href="https://vk.com/" target="_blank" rel="noopener noreferrer" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">ВКонтакте</a>
+              <a href="https://t.me/danilovaelal" target="_blank" rel="noopener noreferrer" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Telegram</a>
+              <a href="https://vk.ru/danilovaelal" target="_blank" rel="noopener noreferrer" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">ВКонтакте</a>
             </div>
           </div>
         </div>
