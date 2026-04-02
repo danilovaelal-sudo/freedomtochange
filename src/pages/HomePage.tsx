@@ -265,8 +265,8 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-mono text-primary mb-4">заглянуть в себя</p>
               <h2 className="heading-large mb-8">ГДЕ Я СЕЙЧАС<br />НА СВОЁМ ПУТИ?</h2>
-              <p className="text-muted-foreground text-lg mb-12 max-w-xl mx-auto">
-                Пять вопросов, которые помогут остановиться и прислушаться к себе. Без регистрации.
+              <p className="text-muted-foreground text-lg mb-12 max-w-xl mx-auto whitespace-pre-line">
+                Пять вопросов, которые помогут остановиться{"\n"}и прислушаться к себе.
               </p>
               <button onClick={() => setShowQuiz(true)} className="brutal-btn animate-pulse-border">
                 Посмотреть внутрь
