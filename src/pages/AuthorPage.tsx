@@ -20,23 +20,31 @@ export default function AuthorPage() {
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-              <div className="relative border-[3px] border-foreground/20 -ml-0 lg:-ml-[3px] -mt-[3px] lg:mt-0 overflow-hidden">
-                <img src={authorPortrait} alt="Елена Данилова" className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" loading="lazy" width={800} height={1200} />
+              <div className="relative border-[3px] border-foreground/20 -ml-0 lg:-ml-[3px] -mt-[3px] lg:mt-0 overflow-hidden group">
+                <img src={authorPortrait} alt="Елена Данилова" className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" loading="lazy" width={800} height={1200} />
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
-                {/* Overlay number */}
-                <span className="absolute bottom-4 right-6 font-black text-8xl text-primary/30">50</span>
+                <span className="absolute bottom-4 right-6 font-black text-8xl text-primary/30">///</span>
               </div>
             </ScrollReveal>
           </div>
+
+          {/* Book excerpt */}
+          <ScrollReveal>
+            <div className="mb-16 border-l-[6px] border-primary pl-8 py-6">
+              <p className="italic text-muted-foreground text-lg leading-relaxed">
+                «Я собираюсь рассказать историю женщины, которая в 22 года откладывает красный диплом МГУ и выбирает жизнь в монастыре, проводит в стенах обители 16 лет, возвращается в «мир», выходит замуж, рожает первого ребенка почти в 41 год, и в течение 7 лет успевает родить еще троих.»
+              </p>
+              <p className="text-mono text-primary mt-4">— из книги «Почему не поздно»</p>
+            </div>
+          </ScrollReveal>
 
           <ScrollReveal>
             <div className="max-w-3xl border-[3px] border-foreground/10 p-8 md:p-12">
               <h2 className="heading-section mb-8">МОЯ<br />ИСТОРИЯ</h2>
               <div className="body-editorial text-muted-foreground space-y-6">
-                <p>Я собираюсь рассказать историю женщины, которая в 22 года откладывает красный диплом МГУ и выбирает жизнь в монастыре, проводит в стенах обители 16 лет, возвращается в «мир» накануне своего сорокалетия, выходит замуж, рожает первого ребенка почти в 41 год, и в течение 7 лет успевает родить еще троих.</p>
                 <p>Мне самой не верится, но все написанное — обо мне. Начала писать и говорить о себе только сейчас, когда мне пятьдесят.</p>
                 <p>Монастырь был запрещенной темой для меня 10 лет точно после того, как я вернулась к прежней жизни. Я не могла говорить об этом даже с мужем.</p>
-                <p>Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять Богу.</p>
+                <p>Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять.</p>
               </div>
             </div>
           </ScrollReveal>
@@ -50,14 +58,23 @@ export default function AuthorPage() {
                   { title: 'Право на перемены', text: 'В любом возрасте. После любого опыта.' },
                   { title: 'Вера и жизнь', text: 'Вера — не побег от мира, а способ быть в нём глубже.' },
                   { title: 'Женская ценность', text: 'Ты ценна просто потому, что ты есть.' },
-                  { title: 'Позднее материнство', text: 'Как чудо, а не как отклонение от нормы.' },
+                  { title: 'Материнство', text: 'Как чудо, а не как норма или отклонение.' },
                 ].map((v, i) => (
-                  <div key={i} className="border-[3px] border-foreground/10 -mt-[3px] p-6 hover:border-primary/30 transition-colors">
+                  <div key={i} className="border-[3px] border-foreground/10 -mt-[3px] p-6 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
                     <h3 className="font-black text-lg uppercase tracking-tight mb-1">{v.title}</h3>
                     <p className="text-muted-foreground text-sm">{v.text}</p>
                   </div>
                 ))}
               </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Another book excerpt */}
+          <ScrollReveal delay={150}>
+            <div className="mt-16 border-[3px] border-primary/20 bg-primary/5 p-8 md:p-12 max-w-3xl">
+              <blockquote className="book-quote text-base md:text-lg border-l-0 pl-0">
+                «Безусловно, каждый человек уникален и любая жизнь полна событий и опасных поворотов. Но некоторые истории вызывают у нас особое удивление и захватывают необычными почти нереальными приключениями.»
+              </blockquote>
             </div>
           </ScrollReveal>
 

@@ -6,43 +6,45 @@
 
 @layer base {
   :root {
-    --background: 0 0% 5%;
-    --foreground: 45 10% 92%;
+    --background: 0 0% 7%;
+    --foreground: 40 15% 93%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 45 10% 92%;
+    --card: 0 0% 10%;
+    --card-foreground: 40 15% 93%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 45 10% 92%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 40 15% 93%;
 
-    --primary: 0 75% 50%;
+    --primary: 24 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 45 10% 85%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 40 10% 80%;
 
-    --muted: 0 0% 14%;
-    --muted-foreground: 45 5% 60%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 75 80% 55%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 24 100% 50%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 22%;
-    --input: 0 0% 22%;
-    --ring: 0 75% 45%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 24 100% 45%;
 
     --radius: 0px;
 
-    --wine: 0 75% 35%;
-    --wine-light: 0 60% 50%;
-    --olive: 80 20% 18%;
-    --navy: 220 30% 12%;
-    --graphite: 0 0% 12%;
-    --cream: 45 20% 90%;
-    --gold: 45 80% 55%;
+    --wine: 24 100% 50%;
+    --wine-light: 24 80% 60%;
+    --olive: 0 0% 48%;
+    --navy: 0 0% 14%;
+    --graphite: 0 0% 10%;
+    --cream: 40 20% 93%;
+    --gold: 24 100% 50%;
+    --concrete: 0 0% 48%;
+    --concrete-light: 0 0% 85%;
   }
 }
 
@@ -69,7 +71,7 @@
   top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.035;
+  opacity: 0.06;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -100,12 +102,12 @@
   }
   .brutal-btn {
     @apply px-8 py-4 bg-primary text-primary-foreground font-black text-sm tracking-widest uppercase 
-           border-[3px] border-foreground hover:bg-accent hover:text-accent-foreground 
+           border-[3px] border-foreground hover:bg-foreground hover:text-background 
            transition-all duration-150 active:translate-x-[2px] active:translate-y-[2px];
   }
   .brutal-btn-outline {
     @apply px-8 py-4 bg-transparent text-foreground font-black text-sm tracking-widest uppercase 
-           border-[3px] border-foreground hover:bg-foreground hover:text-background 
+           border-[3px] border-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary
            transition-all duration-150 active:translate-x-[2px] active:translate-y-[2px];
   }
   .brutal-card {
@@ -119,24 +121,33 @@
     -webkit-text-stroke: 2px hsl(var(--primary));
     color: transparent;
   }
+  .book-quote {
+    @apply border-l-[6px] border-primary pl-6 py-4 italic text-muted-foreground text-sm md:text-base leading-relaxed;
+  }
 }
 
 @layer utilities {
   .animate-fade-up {
-    animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
   }
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-out forwards;
+    animation: fadeIn 0.4s ease-out forwards;
     opacity: 0;
   }
   .animate-slide-in {
-    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
   }
   .animate-brutal-in {
-    animation: brutalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: brutalIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
+  }
+  .animate-glitch {
+    animation: glitch 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .animate-shake {
+    animation: shake 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .animation-delay-200 { animation-delay: 0.2s; }
   .animation-delay-400 { animation-delay: 0.4s; }
@@ -146,7 +157,7 @@
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
+  from { opacity: 0; transform: translateY(60px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
@@ -154,19 +165,46 @@
   to { opacity: 1; }
 }
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(-40px); }
+  from { opacity: 0; transform: translateX(-60px); }
   to { opacity: 1; transform: translateX(0); }
 }
 @keyframes brutalIn {
-  from { opacity: 0; transform: translateY(60px) skewY(3deg); }
+  from { opacity: 0; transform: translateY(80px) skewY(4deg); }
   to { opacity: 1; transform: translateY(0) skewY(0); }
+}
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(3px, -3px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 2px); }
+  100% { transform: translate(0); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px) rotate(-1deg); }
+  75% { transform: translateX(5px) rotate(1deg); }
 }
 @keyframes ticker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 .animate-ticker {
-  animation: ticker 30s linear infinite;
+  animation: ticker 25s linear infinite;
+}
+@keyframes pulse-border {
+  0%, 100% { border-color: hsl(var(--primary) / 0.3); }
+  50% { border-color: hsl(var(--primary)); }
+}
+.animate-pulse-border {
+  animation: pulse-border 2s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -182,6 +220,6 @@ html {
 }
 
 ::selection {
-  background: hsl(0 75% 50% / 0.6);
+  background: hsl(24 100% 50% / 0.6);
   color: hsl(0 0% 100%);
 }

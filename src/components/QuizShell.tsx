@@ -86,7 +86,7 @@ const results: Result[] = [
     key: 'loss',
     title: 'Ты переживаешь потерю прежней себя',
     description: 'Что-то важное ушло. Это больно, но за этой болью скрывается пространство для новой тебя.',
-    suggestion: 'Книга «Почему после 40 не поздно» написана именно об этом',
+    suggestion: 'Книга написана именно об этом',
     link: '/book',
   },
   {
@@ -132,7 +132,7 @@ export default function QuizShell({ onClose }: { onClose?: () => void }) {
           <p className="text-mono text-primary mb-6">Твой результат</p>
           <h2 className="heading-section mb-8">{result.title}</h2>
           <p className="body-editorial text-muted-foreground mb-6">{result.description}</p>
-          <p className="text-mono text-accent mb-8">{result.suggestion}</p>
+          <p className="text-mono text-primary/70 mb-8">{result.suggestion}</p>
           <div className="flex flex-col sm:flex-row gap-4">
             {result.link && (
               <a href={result.link} className="brutal-btn text-center">Перейти →</a>
@@ -169,7 +169,7 @@ export default function QuizShell({ onClose }: { onClose?: () => void }) {
             <button
               key={i}
               onClick={() => handleAnswer(a.scores)}
-              className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group"
+              className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group active:translate-x-[2px] active:translate-y-[2px]"
             >
               <span className="text-lg font-bold group-hover:text-primary text-muted-foreground transition-colors">{a.text}</span>
             </button>

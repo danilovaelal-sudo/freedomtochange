@@ -16,7 +16,7 @@ export default function AboutPage() {
             <ScrollReveal delay={200}>
               <div className="border-[3px] border-foreground/20 p-8 md:p-12">
                 <div className="body-editorial text-muted-foreground space-y-6">
-                  <p>Этот проект — не про успех после 40. Не про мотивацию. Не про «ты всё можешь, просто поверь».</p>
+                  <p>Этот проект — не про мотивацию. Не про «ты всё можешь, просто поверь».</p>
                   <p>Это пространство для женщин, которые переживают внутренний кризис. Которые потеряли опору. Которые чувствуют, что жизнь проходит мимо.</p>
                   <p>Здесь можно остановиться. Прислушаться к себе. Пройти тест. Прочитать историю, которая отзовётся. Почувствовать, что ты не одна.</p>
                 </div>
@@ -24,8 +24,11 @@ export default function AboutPage() {
             </ScrollReveal>
             <ScrollReveal delay={300}>
               <div className="border-[3px] border-foreground/20 -ml-0 lg:-ml-[3px] -mt-[3px] lg:mt-0 p-8 md:p-12 bg-primary/5">
+                <blockquote className="book-quote text-base md:text-lg mb-6">
+                  «Безусловно, каждый человек уникален и любая жизнь полна событий и опасных поворотов. Но некоторые истории вызывают у нас особое удивление.»
+                </blockquote>
                 <p className="body-editorial text-muted-foreground">
-                  Проект вырос из книги «Почему после 40 не поздно» и личного опыта автора — Елены Даниловой, женщины, которая начинала заново не один раз.
+                  Проект вырос из книги и личного опыта автора — Елены Даниловой, женщины, которая начинала заново не один раз.
                 </p>
               </div>
             </ScrollReveal>
@@ -50,13 +53,23 @@ export default function AboutPage() {
 
           <ScrollReveal delay={400}>
             <div className="mt-16 p-8 md:p-12 bg-primary/5 border-[3px] border-primary/20">
-              <h2 className="heading-section mb-8">ПОЧЕМУ ТЕМА<br />«НЕ ПОЗДНО» ВАЖНА</h2>
+              <h2 className="heading-section mb-8">ПОЧЕМУ ЭТА<br />ТЕМА ВАЖНА</h2>
               <p className="body-editorial text-muted-foreground mb-6">
-                Потому что миллионы женщин живут с ощущением, что их время прошло. Что они уже не могут начать заново. Что менять жизнь после 40 — страшно, стыдно, поздно.
+                Потому что миллионы женщин живут с ощущением, что их время прошло. Что они уже не могут начать заново. Что менять жизнь — страшно, стыдно, поздно.
               </p>
               <p className="font-black text-2xl md:text-3xl uppercase tracking-tight text-primary">
                 Этот проект говорит: нет. Не поздно. И ты не одна.
               </p>
+            </div>
+          </ScrollReveal>
+
+          {/* Book excerpt interlude */}
+          <ScrollReveal delay={450}>
+            <div className="mt-16 border-l-[6px] border-primary pl-8 py-6">
+              <p className="italic text-muted-foreground text-lg leading-relaxed">
+                «Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять.»
+              </p>
+              <p className="text-mono text-primary mt-4">— из книги</p>
             </div>
           </ScrollReveal>
 

@@ -14,13 +14,15 @@ const interactives = [
   { id: 'awakening', title: 'Что во мне просыпается сейчас', type: 'интерактив', desc: 'Исследование того, что зреет внутри' },
 ];
 
+const bookExcerpt = '«Некоторые истории вызывают у нас особое удивление и захватывают необычными почти нереальными приключениями.»';
+
 function TransitionMap() {
   const [step, setStep] = useState(0);
   const [choices, setChoices] = useState<string[]>([]);
   const steps = [
     { title: 'Моё состояние сейчас', options: ['Растерянность', 'Тревога', 'Тихая надежда', 'Усталость', 'Злость', 'Опустошённость'] },
     { title: 'Что мешает двигаться', options: ['Страх неизвестности', 'Чужие ожидания', 'Вина и стыд', 'Нет поддержки', 'Неверие в себя', 'Привычка терпеть'] },
-    { title: 'Мой ресурс', options: ['Внутренняя сила', 'Вера', 'Желание перемен', 'Любовь к детям', 'Творчество', 'Усталость от прежнего'] },
+    { title: 'Мой ресурс', options: ['Внутренняя сила', 'Вера', 'Желание перемен', 'Любовь к близким', 'Творчество', 'Усталость от прежнего'] },
     { title: 'Мой следующий шаг', options: ['Остановиться', 'Поговорить', 'Прочитать книгу', 'Пройти тест', 'Написать письмо', 'Подышать'] },
   ];
 
@@ -30,7 +32,7 @@ function TransitionMap() {
         <h3 className="heading-section mb-12">ТВОЯ КАРТА<br />ПЕРЕХОДА</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-0 mb-12">
           {choices.map((c, i) => (
-            <div key={i} className="border-[3px] border-foreground/10 -ml-[3px] first:ml-0 p-6">
+            <div key={i} className="border-[3px] border-foreground/10 -ml-[3px] first:ml-0 p-6 hover:border-primary/30 transition-colors">
               <p className="text-mono text-primary text-xs mb-2">{steps[i].title}</p>
               <p className="font-black text-lg uppercase tracking-tight">{c}</p>
             </div>
@@ -55,7 +57,7 @@ function TransitionMap() {
       <h3 className="heading-section mb-12">{current.title}</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
         {current.options.map((opt, i) => (
-          <button key={i} onClick={() => { setChoices([...choices, opt]); setStep(step + 1); }} className="p-6 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all text-left group">
+          <button key={i} onClick={() => { setChoices([...choices, opt]); setStep(step + 1); }} className="p-6 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all text-left group active:translate-x-[2px] active:translate-y-[2px]">
             <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
           </button>
         ))}
@@ -131,18 +133,28 @@ export default function InteractivesPage() {
           <ScrollReveal>
             <p className="text-mono text-primary mb-6">интерактивы</p>
             <h1 className="heading-display mb-8 max-w-4xl">ЛАБОРАТОРИЯ<br /><span className="text-stroke">ВНУТРЕННЕГО</span><br /><span className="text-primary">ДВИЖЕНИЯ</span></h1>
-            <p className="body-editorial text-muted-foreground max-w-xl mb-20">
+            <p className="body-editorial text-muted-foreground max-w-xl mb-12">
               Пространство, где можно остановиться и исследовать себя. Без регистрации. Только ты и твои ответы.
             </p>
           </ScrollReveal>
 
+          {/* Book excerpt interlude */}
+          {!active && (
+            <ScrollReveal delay={100}>
+              <div className="mb-16 border-l-[6px] border-primary pl-8 py-4">
+                <p className="italic text-muted-foreground text-base">{bookExcerpt}</p>
+                <p className="text-mono text-primary mt-3">— из книги</p>
+              </div>
+            </ScrollReveal>
+          )}
+
           {!active && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
               {interactives.map((item, i) => (
-                <ScrollReveal key={item.id} delay={i * 60}>
+                <ScrollReveal key={item.id} delay={i * 80}>
                   <button
                     onClick={() => setActive(item.id)}
-                    className="w-full text-left p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group"
+                    className="w-full text-left p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all duration-200 group active:translate-x-[2px] active:translate-y-[2px]"
                   >
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-mono text-primary">{item.type}</span>

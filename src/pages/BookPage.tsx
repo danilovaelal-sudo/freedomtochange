@@ -6,6 +6,7 @@ import bookCover from '@/assets/book-cover.jpg';
 const quotes = [
   'Я собираюсь рассказать историю женщины, которая в 22 года откладывает красный диплом МГУ и выбирает жизнь в монастыре.',
   'Мне самой не верится, но все написанное — обо мне. Начала писать и говорить о себе только сейчас, когда мне пятьдесят.',
+  'Безусловно, каждый человек уникален и любая жизнь полна событий и опасных поворотов. Но некоторые истории вызывают у нас особое удивление.',
 ];
 
 export default function BookPage() {
@@ -15,15 +16,15 @@ export default function BookPage() {
       <section className="py-24 md:py-32 px-6">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-5 gap-0 items-stretch">
           <ScrollReveal className="lg:col-span-2">
-            <div className="border-[3px] border-foreground/20 p-4 bg-card h-full flex items-center justify-center">
-              <img src={bookCover} alt="Почему после 40 не поздно" className="w-full max-w-md grayscale hover:grayscale-0 transition-all duration-500" width={640} height={960} />
+            <div className="border-[3px] border-foreground/20 p-4 bg-card h-full flex items-center justify-center group overflow-hidden">
+              <img src={bookCover} alt="Книга Не поздно" className="w-full max-w-md grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" width={640} height={960} />
             </div>
           </ScrollReveal>
           <ScrollReveal delay={200} className="lg:col-span-3">
             <div className="border-[3px] border-foreground/20 -ml-0 lg:-ml-[3px] -mt-[3px] lg:mt-0 p-8 md:p-12 h-full flex flex-col justify-center">
               <p className="text-mono text-primary mb-6">книга</p>
-              <h1 className="heading-display mb-8">ПОЧЕМУ<br />ПОСЛЕ 40<br /><span className="text-primary">НЕ ПОЗДНО</span></h1>
-              <p className="text-mono text-accent mb-4">Елена Данилова</p>
+              <h1 className="heading-display mb-8">ПОЧЕМУ<br /><span className="text-primary">НЕ ПОЗДНО</span></h1>
+              <p className="text-mono text-primary/60 mb-4">Елена Данилова</p>
               <p className="body-editorial text-muted-foreground mb-8">
                 Личная история, ставшая книгой. Путь от монастыря к материнству, от потери себя — к обретению нового смысла.
               </p>
@@ -44,8 +45,8 @@ export default function BookPage() {
           <ScrollReveal>
             <h2 className="heading-section mb-8">О ЧЁМ<br />ЭТА КНИГА</h2>
             <div className="body-editorial text-muted-foreground space-y-6">
-              <p>Речь пойдет не о том, зачем уходят в монастырь и почему возвращаются из него, не только о женщине, неожиданно ставшей многодетной мамой после 40 лет.</p>
-              <p>Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять Богу.</p>
+              <p>Речь пойдет не о том, зачем уходят в монастырь и почему возвращаются из него, не только о женщине, неожиданно ставшей многодетной мамой.</p>
+              <p>Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять.</p>
             </div>
           </ScrollReveal>
         </div>
@@ -56,7 +57,7 @@ export default function BookPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           {quotes.map((q, i) => (
             <ScrollReveal key={i} delay={i * 150}>
-              <blockquote className="border-l-[6px] border-primary pl-8 py-4 bg-primary/5">
+              <blockquote className="border-l-[6px] border-primary pl-8 py-4 bg-primary/5 hover:bg-primary/10 transition-colors duration-300">
                 <p className="font-black text-xl md:text-2xl uppercase tracking-tight text-foreground leading-tight">«{q}»</p>
               </blockquote>
             </ScrollReveal>
@@ -65,7 +66,7 @@ export default function BookPage() {
       </section>
 
       {/* Fragment */}
-      <section id="fragment" className="py-20 px-6 border-t-[3px] border-foreground/10">
+      <section id="fragment" className="py-20 px-6 border-t-[3px] border-primary/30">
         <div className="max-w-3xl mx-auto">
           <ScrollReveal>
             <p className="text-mono text-primary mb-6">фрагмент книги</p>
@@ -87,14 +88,14 @@ export default function BookPage() {
             <h2 className="heading-section mb-8">КОМУ<br />ПОДОЙДЁТ</h2>
             <div className="space-y-0">
               {[
-                'Женщинам, которые чувствуют, что их время прошло',
-                'Тем, кто переживает кризис идентичности после 40',
+                'Женщинам, которые чувствуют, что их время проходит',
+                'Тем, кто переживает внутренний кризис',
                 'Тем, кто боится перемен, но чувствует их неизбежность',
-                'Женщинам, потерявшим опору после развода или потери',
+                'Женщинам, потерявшим опору после разрыва или потери',
                 'Тем, кто ищет вдохновение в реальной истории',
                 'Всем, кто хочет разрешить себе жить по-другому',
               ].map((item, i) => (
-                <p key={i} className="pl-6 border-l-[4px] border-primary text-muted-foreground py-3 border-b border-foreground/5">{item}</p>
+                <p key={i} className="pl-6 border-l-[4px] border-primary text-muted-foreground py-3 border-b border-foreground/5 hover:text-foreground hover:bg-primary/5 transition-all duration-200">{item}</p>
               ))}
             </div>
           </ScrollReveal>
