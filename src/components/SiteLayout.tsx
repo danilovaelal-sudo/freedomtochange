@@ -5,7 +5,7 @@ import PageTransition from './PageTransition';
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col noise-bg">
+    <div className="min-h-screen flex flex-col noise-bg scanline-overlay">
       <SiteHeader />
       <main className="flex-1 pt-16">
         <PageTransition>{children}</PageTransition>
