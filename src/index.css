@@ -45,6 +45,16 @@
     --gold: 24 100% 50%;
     --concrete: 0 0% 48%;
     --concrete-light: 0 0% 85%;
+
+    /* Material Design elevation */
+    --md-elevation-1: 0 1px 3px 1px hsl(0 0% 0% / 0.15), 0 1px 2px 0 hsl(0 0% 0% / 0.3);
+    --md-elevation-2: 0 2px 6px 2px hsl(0 0% 0% / 0.15), 0 1px 2px 0 hsl(0 0% 0% / 0.3);
+    --md-elevation-3: 0 4px 8px 3px hsl(0 0% 0% / 0.15), 0 1px 3px 0 hsl(0 0% 0% / 0.3);
+    --md-elevation-4: 0 6px 10px 4px hsl(0 0% 0% / 0.15), 0 2px 3px 0 hsl(0 0% 0% / 0.3);
+    --md-elevation-5: 0 8px 12px 6px hsl(0 0% 0% / 0.15), 0 4px 4px 0 hsl(0 0% 0% / 0.3);
+
+    /* Material surface tint */
+    --md-surface-tint: 24 100% 50%;
   }
 }
 
@@ -100,40 +110,96 @@
   .brutal-border-accent {
     @apply border-[3px] border-primary;
   }
+
+  /* Material Design Buttons */
   .brutal-btn {
     @apply px-8 py-4 bg-primary text-primary-foreground font-black text-sm tracking-widest uppercase 
-           border-[3px] border-foreground hover:bg-foreground hover:text-background 
-           transition-all duration-150 active:translate-x-[2px] active:translate-y-[2px];
+           border-[3px] border-foreground transition-all duration-200;
+    box-shadow: var(--md-elevation-2);
+    position: relative;
+    overflow: hidden;
   }
+  .brutal-btn:hover {
+    @apply bg-foreground text-background;
+    box-shadow: var(--md-elevation-4);
+    transform: translateY(-2px);
+  }
+  .brutal-btn:active {
+    box-shadow: var(--md-elevation-1);
+    transform: translateY(1px);
+  }
+
   .brutal-btn-outline {
     @apply px-8 py-4 bg-transparent text-foreground font-black text-sm tracking-widest uppercase 
-           border-[3px] border-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary
-           transition-all duration-150 active:translate-x-[2px] active:translate-y-[2px];
+           border-[3px] border-foreground transition-all duration-200;
+    box-shadow: var(--md-elevation-1);
+    position: relative;
+    overflow: hidden;
   }
+  .brutal-btn-outline:hover {
+    @apply bg-primary text-primary-foreground border-primary;
+    box-shadow: var(--md-elevation-3);
+    transform: translateY(-2px);
+  }
+  .brutal-btn-outline:active {
+    box-shadow: none;
+    transform: translateY(1px);
+  }
+
+  /* Material + Brutal Card hybrid */
   .brutal-card {
-    @apply bg-card border-[3px] border-foreground/20 p-8 transition-all duration-200;
-    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+    @apply bg-card border-[3px] border-foreground/20 p-8 transition-all duration-300;
+    box-shadow: var(--md-elevation-1);
+    position: relative;
+  }
+  .brutal-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--md-surface-tint) / 0);
+    transition: background 0.3s;
+    pointer-events: none;
   }
   .brutal-card:hover {
     @apply border-primary;
-    box-shadow: 6px 6px 0 0 hsl(var(--primary) / 0.25);
-    transform: translate(-2px, -2px);
+    box-shadow: var(--md-elevation-4);
+    transform: translate(-3px, -3px);
+  }
+  .brutal-card:hover::after {
+    background: hsl(var(--md-surface-tint) / 0.08);
   }
   .brutal-card:hover h3,
   .brutal-card:hover .card-title {
     animation: glitch 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Scenario/explore card hover */
+  /* Scenario/explore card hover — Material elevation + brutal shift */
   .hover-brutal {
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--md-elevation-1);
+    position: relative;
+    overflow: hidden;
+  }
+  .hover-brutal::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: hsl(var(--primary) / 0.08);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+  .hover-brutal:hover::before {
+    width: 300%;
+    height: 300%;
   }
   .hover-brutal:hover {
     border-color: hsl(var(--primary)) !important;
-    box-shadow: 5px 5px 0 0 hsl(var(--primary) / 0.3);
-    transform: translate(-2px, -2px);
-    background: hsl(var(--primary) / 0.07);
+    box-shadow: var(--md-elevation-4), 6px 6px 0 0 hsl(var(--primary) / 0.2);
+    transform: translate(-3px, -3px);
   }
   .hover-brutal:hover h3 {
     animation: glitch 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -141,22 +207,68 @@
   }
   .hover-brutal:active {
     transform: translate(1px, 1px);
-    box-shadow: 2px 2px 0 0 hsl(var(--primary) / 0.2);
+    box-shadow: var(--md-elevation-1);
   }
 
-  /* Timeline card hover */
+  /* Timeline card hover — Material elevation + float */
   .hover-timeline {
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--md-elevation-1);
   }
   .hover-timeline:hover {
     border-color: hsl(var(--primary) / 0.6) !important;
-    box-shadow: 4px 8px 0 0 hsl(var(--primary) / 0.15);
-    transform: translateY(-4px);
+    box-shadow: var(--md-elevation-5);
+    transform: translateY(-6px) rotate(-0.5deg);
     background: hsl(var(--primary) / 0.05);
   }
   .hover-timeline:hover h3 {
     color: hsl(var(--primary));
   }
+
+  /* Material FAB */
+  .md-fab {
+    @apply fixed bottom-8 right-8 z-40 w-14 h-14 rounded-full bg-primary text-primary-foreground 
+           flex items-center justify-center font-black text-xl;
+    box-shadow: var(--md-elevation-3);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .md-fab:hover {
+    box-shadow: var(--md-elevation-5);
+    transform: scale(1.1) rotate(90deg);
+  }
+
+  /* Material Chip */
+  .md-chip {
+    @apply inline-flex items-center px-4 py-1.5 text-xs font-bold uppercase tracking-wider 
+           border-[2px] border-foreground/20 transition-all duration-200;
+    box-shadow: var(--md-elevation-1);
+  }
+  .md-chip:hover {
+    @apply border-primary text-primary;
+    box-shadow: var(--md-elevation-2);
+  }
+
+  /* Material Surface Card */
+  .md-surface {
+    @apply bg-card border-[2px] border-foreground/10 transition-all duration-300;
+    box-shadow: var(--md-elevation-2);
+    position: relative;
+  }
+  .md-surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--md-surface-tint) / 0);
+    transition: background 0.3s;
+    pointer-events: none;
+  }
+  .md-surface:hover {
+    box-shadow: var(--md-elevation-4);
+  }
+  .md-surface:hover::after {
+    background: hsl(var(--md-surface-tint) / 0.05);
+  }
+
   .text-stroke {
     -webkit-text-stroke: 2px hsl(var(--foreground));
     color: transparent;
@@ -167,6 +279,48 @@
   }
   .book-quote {
     @apply border-l-[6px] border-primary pl-6 py-4 italic text-muted-foreground text-sm md:text-base leading-relaxed;
+  }
+
+  /* Ripple effect */
+  .ripple-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: hsl(var(--primary) / 0.3);
+    transform: scale(0);
+    animation: ripple-anim 0.6s linear;
+    pointer-events: none;
+  }
+
+  /* Art-house diagonal line */
+  .art-diagonal {
+    position: relative;
+  }
+  .art-diagonal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -20%;
+    width: 140%;
+    height: 3px;
+    background: hsl(var(--primary));
+    transform: rotate(-2deg);
+    opacity: 0.4;
+  }
+
+  /* Marquee / running text */
+  .marquee-wrap {
+    @apply overflow-hidden whitespace-nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-inner:hover {
+    animation-play-state: paused;
   }
 }
 
@@ -192,6 +346,9 @@
   }
   .animate-shake {
     animation: shake 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .animate-scramble {
+    animation: scramble 0.5s steps(8) forwards;
   }
   .animation-delay-200 { animation-delay: 0.2s; }
   .animation-delay-400 { animation-delay: 0.4s; }
@@ -229,6 +386,21 @@
   25% { transform: translateX(-5px) rotate(-1deg); }
   75% { transform: translateX(5px) rotate(1deg); }
 }
+@keyframes scramble {
+  0% { clip-path: inset(40% 0 40% 0); opacity: 0; }
+  20% { clip-path: inset(10% 0 60% 0); }
+  40% { clip-path: inset(50% 0 10% 0); }
+  60% { clip-path: inset(20% 0 30% 0); }
+  80% { clip-path: inset(5% 0 5% 0); }
+  100% { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+@keyframes ripple-anim {
+  to { transform: scale(4); opacity: 0; }
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 @keyframes ticker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -250,6 +422,24 @@
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+@keyframes morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+.animate-morph {
+  animation: morph 8s ease-in-out infinite;
+}
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -266,4 +456,34 @@ html {
 ::selection {
   background: hsl(24 100% 50% / 0.6);
   color: hsl(0 0% 100%);
+}
+
+/* Scanline effect overlay */
+.scanline-overlay::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: hsl(var(--primary) / 0.1);
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Cursor glow effect for hero */
+.cursor-glow {
+  position: relative;
+}
+.cursor-glow::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  z-index: 1;
 }
