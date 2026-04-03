@@ -1,6 +1,6 @@
 import SiteLayout from '@/components/SiteLayout';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import QuizShell from '@/components/QuizShell';
 
 const interactives = [
@@ -25,6 +25,20 @@ const bookQuotes: Record<string, string> = {
 
 const bookExcerpt = '«Некоторые истории вызывают у нас особое удивление и захватывают необычными почти нереальными приключениями.»';
 
+/* Ripple helper */
+function addRipple(e: React.MouseEvent<HTMLElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  const ripple = document.createElement('span');
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = `${size}px`;
+  ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+  ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+  ripple.className = 'ripple';
+  el.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 600);
+}
+
 function TransitionMap() {
   const [step, setStep] = useState(0);
   const [choices, setChoices] = useState<string[]>([]);
@@ -39,9 +53,9 @@ function TransitionMap() {
     return (
       <div className="py-16">
         <h3 className="heading-section mb-12">ТВОЯ КАРТА<br />ПЕРЕХОДА</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-0 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
           {choices.map((c, i) => (
-            <div key={i} className="border-[3px] border-foreground/10 -ml-[3px] first:ml-0 p-6 hover:border-primary/30 transition-colors">
+            <div key={i} className="md-surface p-6">
               <p className="text-mono text-primary text-xs mb-2">{steps[i].title}</p>
               <p className="font-black text-lg uppercase tracking-tight">{c}</p>
             </div>
@@ -57,16 +71,16 @@ function TransitionMap() {
   return (
     <div className="py-16">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-mono text-primary">{step + 1} / {steps.length}</p>
+        <span className="md-chip">{step + 1} / {steps.length}</span>
         {step > 0 && <button onClick={() => { setStep(step - 1); setChoices(choices.slice(0, -1)); }} className="text-mono text-muted-foreground hover:text-foreground">← Назад</button>}
       </div>
-      <div className="w-full h-[4px] bg-foreground/10 mb-12 relative">
-        <div className="absolute left-0 top-0 h-full bg-primary transition-all duration-300" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
+      <div className="w-full h-[4px] bg-foreground/10 mb-12 relative overflow-hidden">
+        <div className="absolute left-0 top-0 h-full bg-primary transition-all duration-500 ease-out" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
       </div>
       <h3 className="heading-section mb-12">{current.title}</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {current.options.map((opt, i) => (
-          <button key={i} onClick={() => { setChoices([...choices, opt]); setStep(step + 1); }} className="p-6 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] hover:border-primary hover:bg-primary/5 transition-all text-left group active:translate-x-[2px] active:translate-y-[2px]">
+          <button key={i} onClick={(e) => { addRipple(e); setTimeout(() => { setChoices([...choices, opt]); setStep(step + 1); }, 200); }} className="ripple-container hover-brutal p-6 border-[3px] border-foreground/10 text-left group">
             <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
           </button>
         ))}
@@ -88,7 +102,7 @@ function FutureLetter() {
     return (
       <div className="py-16 max-w-2xl">
         <h3 className="heading-section mb-8">ПИСЬМО ТЕБЕ<br />ОТ БУДУЩЕЙ ТЕБЯ</h3>
-        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-12">
+        <div className="md-surface p-8 border-[3px] border-primary bg-primary/5 mb-12">
           <p className="font-black text-xl uppercase tracking-tight mb-6">Дорогая я,</p>
           <p className="text-muted-foreground leading-relaxed mb-4">
             Я знаю, что ты хочешь оставить в прошлом: {answers[0]?.toLowerCase()}. И я хочу сказать тебе — ты сможешь.
@@ -110,8 +124,8 @@ function FutureLetter() {
 
   return (
     <div className="py-16 max-w-2xl">
-      <p className="text-mono text-primary mb-4">{step + 1} / {prompts.length}</p>
-      <h3 className="heading-section mb-8">{prompts[step]}</h3>
+      <span className="md-chip mb-4">{step + 1} / {prompts.length}</span>
+      <h3 className="heading-section mb-8 mt-4">{prompts[step]}</h3>
       <textarea
         className="w-full bg-transparent border-[3px] border-foreground/20 p-6 text-foreground font-bold text-lg resize-none h-40 focus:outline-none focus:border-primary transition-colors"
         placeholder="Напиши здесь..."
@@ -132,7 +146,6 @@ function FutureLetter() {
   );
 }
 
-/* Quiz: What holds me back */
 function BlocksQuiz() {
   const [step, setStep] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
@@ -149,7 +162,7 @@ function BlocksQuiz() {
     return (
       <div className="py-16 max-w-2xl">
         <h3 className="heading-section mb-8">ТВОЙ РЕЗУЛЬТАТ</h3>
-        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+        <div className="md-surface p-8 border-[3px] border-primary bg-primary/5 mb-8">
           <p className="text-foreground text-lg font-bold">{results[maxIdx] || results[0]}</p>
         </div>
         <button onClick={() => { setStep(0); setScores([]); }} className="brutal-btn-outline">Пройти заново</button>
@@ -160,11 +173,11 @@ function BlocksQuiz() {
   const current = questions[step];
   return (
     <div className="py-16 max-w-2xl">
-      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
-      <h3 className="heading-section mb-8">{current.q}</h3>
-      <div className="space-y-0">
+      <span className="md-chip mb-4">{step + 1} / {questions.length}</span>
+      <h3 className="heading-section mb-8 mt-4">{current.q}</h3>
+      <div className="space-y-4">
         {current.opts.map((opt, i) => (
-          <button key={i} onClick={() => { setScores([...scores, i]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+          <button key={i} onClick={(e) => { addRipple(e); setTimeout(() => { setScores([...scores, i]); setStep(step + 1); }, 200); }} className="ripple-container hover-brutal w-full text-left p-6 border-[3px] border-foreground/10 group">
             <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
           </button>
         ))}
@@ -173,7 +186,6 @@ function BlocksQuiz() {
   );
 }
 
-/* Quiz: Future scenario */
 function FutureQuiz() {
   const [step, setStep] = useState(0);
   const [picks, setPicks] = useState<string[]>([]);
@@ -187,7 +199,7 @@ function FutureQuiz() {
     return (
       <div className="py-16 max-w-2xl">
         <h3 className="heading-section mb-8">ТВОЙ СЦЕНАРИЙ</h3>
-        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+        <div className="md-surface p-8 border-[3px] border-primary bg-primary/5 mb-8">
           <p className="text-foreground text-lg font-bold mb-4">Ты выбираешь: {picks.join(' → ')}</p>
           <p className="text-muted-foreground">Твой путь уже начался. Каждый выбор — это шаг вперёд, даже если кажется, что ты стоишь на месте.</p>
         </div>
@@ -199,11 +211,11 @@ function FutureQuiz() {
   const current = questions[step];
   return (
     <div className="py-16 max-w-2xl">
-      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
-      <h3 className="heading-section mb-8">{current.q}</h3>
-      <div className="space-y-0">
+      <span className="md-chip mb-4">{step + 1} / {questions.length}</span>
+      <h3 className="heading-section mb-8 mt-4">{current.q}</h3>
+      <div className="space-y-4">
         {current.opts.map((opt, i) => (
-          <button key={i} onClick={() => { setPicks([...picks, opt]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+          <button key={i} onClick={(e) => { addRipple(e); setTimeout(() => { setPicks([...picks, opt]); setStep(step + 1); }, 200); }} className="ripple-container hover-brutal w-full text-left p-6 border-[3px] border-foreground/10 group">
             <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
           </button>
         ))}
@@ -212,7 +224,6 @@ function FutureQuiz() {
   );
 }
 
-/* Quiz: What I suppress */
 function SuppressedQuiz() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -227,7 +238,7 @@ function SuppressedQuiz() {
     return (
       <div className="py-16 max-w-2xl">
         <h3 className="heading-section mb-8">ТО, ЧТО ТЫ ПРЯЧЕШЬ</h3>
-        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+        <div className="md-surface p-8 border-[3px] border-primary bg-primary/5 mb-8">
           <p className="text-foreground text-lg font-bold mb-4">Ты подавляешь: {answers.join(', ').toLowerCase()}</p>
           <p className="text-muted-foreground">Каждое подавленное чувство — это часть тебя, которая просит внимания. Не суда, а внимания.</p>
         </div>
@@ -239,11 +250,11 @@ function SuppressedQuiz() {
   const current = questions[step];
   return (
     <div className="py-16 max-w-2xl">
-      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
-      <h3 className="heading-section mb-8">{current.q}</h3>
-      <div className="space-y-0">
+      <span className="md-chip mb-4">{step + 1} / {questions.length}</span>
+      <h3 className="heading-section mb-8 mt-4">{current.q}</h3>
+      <div className="space-y-4">
         {current.opts.map((opt, i) => (
-          <button key={i} onClick={() => { setAnswers([...answers, opt]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+          <button key={i} onClick={(e) => { addRipple(e); setTimeout(() => { setAnswers([...answers, opt]); setStep(step + 1); }, 200); }} className="ripple-container hover-brutal w-full text-left p-6 border-[3px] border-foreground/10 group">
             <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
           </button>
         ))}
@@ -252,7 +263,6 @@ function SuppressedQuiz() {
   );
 }
 
-/* Quiz: Awakening */
 function AwakeningQuiz() {
   const [step, setStep] = useState(0);
   const [picks, setPicks] = useState<string[]>([]);
@@ -266,7 +276,7 @@ function AwakeningQuiz() {
     return (
       <div className="py-16 max-w-2xl">
         <h3 className="heading-section mb-8">ЧТО ПРОСЫПАЕТСЯ</h3>
-        <div className="p-8 border-[3px] border-primary bg-primary/5 mb-8">
+        <div className="md-surface p-8 border-[3px] border-primary bg-primary/5 mb-8">
           <p className="text-foreground text-lg font-bold mb-4">В тебе просыпается: {picks.join(' + ').toLowerCase()}</p>
           <p className="text-muted-foreground">Это не случайность. Это ты — настоящая, под слоем привычного. Она уже здесь.</p>
         </div>
@@ -278,11 +288,11 @@ function AwakeningQuiz() {
   const current = questions[step];
   return (
     <div className="py-16 max-w-2xl">
-      <p className="text-mono text-primary mb-4">{step + 1} / {questions.length}</p>
-      <h3 className="heading-section mb-8">{current.q}</h3>
-      <div className="space-y-0">
+      <span className="md-chip mb-4">{step + 1} / {questions.length}</span>
+      <h3 className="heading-section mb-8 mt-4">{current.q}</h3>
+      <div className="space-y-4">
         {current.opts.map((opt, i) => (
-          <button key={i} onClick={() => { setPicks([...picks, opt]); setStep(step + 1); }} className="w-full text-left p-6 border-[3px] border-foreground/10 -mt-[3px] hover:border-primary hover:bg-primary/5 transition-all group">
+          <button key={i} onClick={(e) => { addRipple(e); setTimeout(() => { setPicks([...picks, opt]); setStep(step + 1); }, 200); }} className="ripple-container hover-brutal w-full text-left p-6 border-[3px] border-foreground/10 group">
             <span className="font-black text-lg uppercase tracking-tight group-hover:text-primary transition-colors">{opt}</span>
           </button>
         ))}
@@ -296,19 +306,22 @@ export default function InteractivesPage() {
 
   return (
     <SiteLayout>
-      <section className="py-24 md:py-32 px-6">
-        <div className="max-w-[1400px] mx-auto">
+      <section className="py-24 md:py-32 px-6 relative overflow-hidden">
+        {/* Decorative blob */}
+        <div className="absolute w-[400px] h-[400px] -top-40 -right-40 animate-morph bg-primary/5 blur-3xl" />
+        
+        <div className="max-w-[1400px] mx-auto relative">
           <ScrollReveal>
-            <p className="text-mono text-primary mb-6">пространство</p>
+            <div className="md-chip mb-6">пространство</div>
             <h1 className="heading-display mb-8 max-w-4xl">ЛАБОРАТОРИЯ<br /><span className="text-stroke">ВНУТРЕННЕГО</span><br /><span className="text-primary">ДВИЖЕНИЯ</span></h1>
             <p className="body-editorial text-muted-foreground max-w-xl mb-12">
-              Пространство, где можно остановиться и исследовать себя. Без регистрации. Только ты и твои ответы.
+              Пространство, где можно остановиться и исследовать себя. Только ты и твои ответы.
             </p>
           </ScrollReveal>
 
           {!active && (
             <ScrollReveal delay={100}>
-              <div className="mb-16 border-l-[6px] border-primary pl-8 py-4">
+              <div className="mb-16 md-surface p-8 border-l-[6px] border-l-primary">
                 <p className="italic text-muted-foreground text-base">{bookExcerpt}</p>
                 <p className="text-mono text-primary mt-3">— из книги</p>
               </div>
@@ -316,15 +329,15 @@ export default function InteractivesPage() {
           )}
 
           {!active && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               {interactives.map((item, i) => (
                 <ScrollReveal key={item.id} delay={i * 80}>
                   <button
-                    onClick={() => setActive(item.id)}
-                    className="hover-brutal w-full text-left p-8 border-[3px] border-foreground/10 -mt-[3px] -ml-[3px] group active:translate-x-[2px] active:translate-y-[2px]"
+                    onClick={(e) => { addRipple(e); setTimeout(() => setActive(item.id), 200); }}
+                    className="ripple-container hover-brutal w-full text-left p-8 border-[3px] border-foreground/10 group"
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-mono text-primary">{item.type}</span>
+                      <span className="md-chip">{item.type}</span>
                       <span className="text-mono text-muted-foreground">0{i + 1}</span>
                     </div>
                     <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight mb-3 transition-colors">{item.title}</h3>
@@ -336,14 +349,14 @@ export default function InteractivesPage() {
           )}
 
           {active && (
-            <div>
-              <button onClick={() => setActive(null)} className="text-mono text-muted-foreground hover:text-primary transition-colors mb-8">
+            <div className="animate-fade-up" style={{ animationDuration: '0.4s' }}>
+              <button onClick={() => setActive(null)} className="md-chip hover:border-primary hover:text-primary transition-colors mb-8">
                 ← Вернуться к пространству
               </button>
               <h2 className="heading-section mb-4">{interactives.find(i => i.id === active)?.title}</h2>
               
               {bookQuotes[active] && (
-                <div className="mb-8 border-l-[6px] border-primary pl-8 py-4 bg-primary/5">
+                <div className="mb-8 md-surface p-8 border-l-[6px] border-l-primary bg-primary/5">
                   <p className="italic text-muted-foreground text-sm">{bookQuotes[active]}</p>
                   <p className="text-mono text-primary text-xs mt-2">— из книги «Почему после 40 не поздно»</p>
                 </div>
