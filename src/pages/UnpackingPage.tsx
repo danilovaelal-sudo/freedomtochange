@@ -250,7 +250,7 @@ export default function UnpackingPage() {
             </h1>
             <p className="text-muted-foreground max-w-md mx-auto text-sm leading-relaxed">
               Семь вопросов. Без масок, без правильных ответов.{'\n'}
-              В конце — твой портрет: архетип, сила, тень и направление.
+              В конце — твой портрет и направление дальнейшего движения.
             </p>
           </div>
 
