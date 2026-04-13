@@ -292,9 +292,9 @@ export default function HomePage() {
             Книга, пространство и поддержка для женщин, которые ищут новый путь.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-up animation-delay-600">
-            <RippleButton onClick={() => setShowQuiz(true)} className="brutal-btn">
+            <Link to="/interactives" className="brutal-btn inline-block text-center">
               Посмотреть внутрь
-            </RippleButton>
+            </Link>
             <Link to="/book" className="brutal-btn-outline">
               Открыть книгу
             </Link>
@@ -394,9 +394,9 @@ export default function HomePage() {
               <p className="text-muted-foreground text-lg mb-12 max-w-xl mx-auto whitespace-pre-line">
                 Пять вопросов, которые помогут остановиться{"\n"}и прислушаться к себе.
               </p>
-              <RippleButton onClick={() => setShowQuiz(true)} className="brutal-btn animate-pulse-border">
+              <Link to="/interactives" className="brutal-btn animate-pulse-border inline-block text-center">
                 Посмотреть внутрь
-              </RippleButton>
+              </Link>
             </div>
           </ScrollReveal>
         </section>
