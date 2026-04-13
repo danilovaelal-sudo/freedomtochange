@@ -11,6 +11,7 @@ import InteractivesPage from "./pages/InteractivesPage";
 import JournalPage from "./pages/JournalPage";
 import SupportPage from "./pages/SupportPage";
 import PrivacyPage from "./pages/PrivacyPage";
+import UnpackingPage from "./pages/UnpackingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/journal" element={<JournalPage />} />
           <Route path="/support" element={<SupportPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/unpacking" element={<UnpackingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
