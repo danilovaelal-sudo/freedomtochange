@@ -289,7 +289,7 @@ export default function HomePage() {
             ЕЩЁ ПРОДОЛЖАЕТСЯ.
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-12 animate-fade-up animation-delay-400 font-light">
-            Книга, пространство и поддержка для женщин, которые ищут новый путь.
+            Пространство и поддержка для женщин, которые ищут новый путь.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-up animation-delay-600">
             <Link to="/interactives" className="brutal-btn inline-block text-center">
