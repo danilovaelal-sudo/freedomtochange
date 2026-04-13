@@ -108,7 +108,7 @@ function PortraitCard({ portrait }: { portrait: Portrait }) {
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
         <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-transparent" />
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2 font-mono">Твой архетип</p>
-        <h2 className="text-3xl md:text-5xl font-bold font-serif text-primary leading-tight">{portrait.archetype}</h2>
+        <h2 className="text-3xl font-bold text-primary leading-tight font-sans md:text-6xl">{portrait.archetype}</h2>
       </div>
 
       {/* Grid of traits */}
