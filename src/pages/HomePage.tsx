@@ -282,7 +282,7 @@ export default function HomePage() {
           <div className="md-chip mb-6 animate-fade-up" style={{ animationDelay: '0s' }}>
             пространство для тех, кто в переходе
           </div>
-          <h1 className="heading-display mb-6 animate-fade-up animation-delay-200 max-w-5xl">
+          <h1 className="text-[2.2rem] md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] uppercase mb-6 animate-fade-up animation-delay-200 max-w-5xl">
             ТЫ НЕ<br />
             <span className="text-primary">ОПОЗДАЛА.</span><br />
             <span className="text-stroke">ТВОЯ ИСТОРИЯ</span><br />
