@@ -1,8 +1,6 @@
 import SiteLayout from '@/components/SiteLayout';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
 import QuizShell from '@/components/QuizShell';
 
 const interactives = [
@@ -332,24 +330,6 @@ export default function InteractivesPage() {
 
           {!active && (
             <div className="space-y-6">
-              {/* AI Unpacking — featured card */}
-              <ScrollReveal>
-                <Link
-                  to="/unpacking"
-                  className="block w-full text-left p-8 md:p-10 border-[3px] border-primary bg-primary/5 hover:bg-primary/10 transition-colors group"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                    <span className="md-chip border-primary text-primary">Глубоко</span>
-                  </div>
-                  <h3 className="font-black text-2xl md:text-3xl uppercase tracking-tight mb-3 text-primary group-hover:text-foreground transition-colors">
-                    Распаковка личности
-                  </h3>
-                  <p className="text-sm text-muted-foreground max-w-lg">
-                    Семь глубоких вопросов от Елены. В конце — твой портрет: архетип, скрытая сила, тень и направление роста.
-                  </p>
-                </Link>
-              </ScrollReveal>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {interactives.map((item, i) => (
