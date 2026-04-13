@@ -245,7 +245,7 @@ export default function UnpackingPage() {
           {/* Header */}
           <div className="mb-12 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono mb-4">Интерактив</p>
-            <h1 className="text-3xl md:text-5xl font-bold font-serif text-foreground mb-4">
+            <h1 className="text-3xl font-bold text-foreground mb-4 font-sans md:text-6xl">
               Распаковка личности
             </h1>
             <p className="text-muted-foreground max-w-md mx-auto text-sm leading-relaxed">
