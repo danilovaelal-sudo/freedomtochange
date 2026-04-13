@@ -1,8 +1,6 @@
 import SiteLayout from '@/components/SiteLayout';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
 import QuizShell from '@/components/QuizShell';
 
 const interactives = [
