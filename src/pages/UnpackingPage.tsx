@@ -151,9 +151,9 @@ function PortraitCard({ portrait }: { portrait: Portrait }) {
           href="https://vk.com/id_elena_danilova"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 font-bold uppercase tracking-wider text-sm hover:bg-primary/90 transition-colors"
+          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 font-bold uppercase tracking-wider text-sm hover:bg-primary/90 transition-colors whitespace-pre-line text-center"
         >
-          Написать Елене
+          {"НАПИС\n\nАТЬ\u00A0"}
           <ExternalLink className="w-4 h-4" />
         </a>
       </div>
