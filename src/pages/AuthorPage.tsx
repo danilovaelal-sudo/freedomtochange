@@ -89,7 +89,7 @@ export default function AuthorPage() {
 
           <ScrollReveal delay={300}>
             <div className="mt-16 flex flex-col sm:flex-row gap-4">
-              <Link to="/book" className="brutal-btn text-center">Исследовать себя</Link>
+              <Link to="/interactives" className="brutal-btn text-center">Исследовать себя</Link>
               <Link to="/support" className="brutal-btn-outline text-center">Узнать о сопровождении</Link>
             </div>
           </ScrollReveal>
