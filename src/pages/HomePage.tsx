@@ -393,7 +393,7 @@ export default function HomePage() {
           <ScrollReveal delay={500}>
             <div className="mt-16 flex flex-col sm:flex-row gap-4">
               <Link to="/author" className="brutal-btn text-center">Узнать об авторе</Link>
-              <Link to="/support" className="brutal-btn-outline text-center">Консультация</Link>
+              <Link to="/support#form" className="brutal-btn-outline text-center">Консультация</Link>
             </div>
           </ScrollReveal>
         </div>
