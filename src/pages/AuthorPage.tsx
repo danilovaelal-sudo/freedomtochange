@@ -42,8 +42,8 @@ export default function AuthorPage() {
             <div className="max-w-3xl border-[3px] border-foreground/10 p-8 md:p-12">
               <h2 className="heading-section mb-8">МОЯ<br />ИСТОРИЯ</h2>
               <div className="body-editorial text-muted-foreground space-y-6">
-                <p>Мне самой не верится, но все написанное — обо мне. Начала писать и говорить о себе только сейчас, когда мне пятьдесят.</p>
-                <p>Монастырь был запрещенной темой для меня 10 лет точно после того, как я вернулась к прежней жизни. Я не могла говорить об этом даже с мужем.</p>
+                <p>Красный диплом МГУ, 16 лет жизни в монастыре<br />Замужество в 40<br />4 детей после 40</p>
+                <p>Несколько профессий, написанная книга, непрерывные поиски себя и своего места. Глубокая вера Богу и умение жить в перехорных точках.</p>
                 <p>Вы увидите на реальных событиях, как могут развернуться жизненные лабиринты, если слушать себя и доверять.</p>
               </div>
             </div>
@@ -89,7 +89,7 @@ export default function AuthorPage() {
 
           <ScrollReveal delay={300}>
             <div className="mt-16 flex flex-col sm:flex-row gap-4">
-              <Link to="/book" className="brutal-btn text-center">Читать книгу</Link>
+              <Link to="/book" className="brutal-btn text-center">Исследовать себя</Link>
               <Link to="/support" className="brutal-btn-outline text-center">Узнать о сопровождении</Link>
             </div>
           </ScrollReveal>
