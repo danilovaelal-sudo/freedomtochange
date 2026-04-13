@@ -639,7 +639,7 @@ export default function HomePage() {
         <ScrollReveal>
           <div className="max-w-3xl mx-auto relative">
             <h2 className="heading-section mb-8">
-              ЕСЛИ ТЕБЕ НУЖЕН<br />НЕ ТОЛЬКО ОТКЛИК,<br />НО И <span className="text-primary">ЛИЧНЫЙ МАРШРУТ</span>
+              ТЕБЕ НУЖЕН<br />НЕ ТОЛЬКО ОТКЛИК,<br />НО И <span className="text-primary">ЛИЧНЫЙ МАРШРУТ</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-12 max-w-xl">
               У меня есть формат глубокой индивидуальной работы. Без давления, без обещаний волшебства. Просто — рядом.
