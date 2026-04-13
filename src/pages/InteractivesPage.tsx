@@ -340,7 +340,7 @@ export default function InteractivesPage() {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <Sparkles className="w-5 h-5 text-primary" />
-                    <span className="md-chip border-primary text-primary">AI · новое</span>
+                    <span className="md-chip border-primary text-primary">Глубоко</span>
                   </div>
                   <h3 className="font-black text-2xl md:text-3xl uppercase tracking-tight mb-3 text-primary group-hover:text-foreground transition-colors">
                     Распаковка личности
