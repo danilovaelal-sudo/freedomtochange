@@ -1,30 +1,7 @@
 import SiteLayout from '@/components/SiteLayout';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-const schema = z.object({
-  name: z.string().min(1, 'Укажите имя').max(100),
-  contact: z.string().min(1, 'Укажите способ связи').max(255),
-  message: z.string().max(1000).optional(),
-  consent: z.literal(true, { errorMap: () => ({ message: 'Необходимо согласие' }) }),
-});
-
-type FormData = z.infer<typeof schema>;
 
 export default function SupportPage() {
-  const [submitted, setSubmitted] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  });
-
-  const onSubmit = async (data: FormData) => {
-    console.log('Application submitted:', data);
-    setSubmitted(true);
-  };
-
   return (
     <SiteLayout>
       <section className="py-24 md:py-32 px-6">
@@ -75,53 +52,25 @@ export default function SupportPage() {
             </ScrollReveal>
           </div>
 
-          {/* Form */}
+          {/* Contact block */}
           <div id="form" className="max-w-2xl">
-            {submitted ? (
-              <ScrollReveal>
-                <div className="border-[3px] border-primary bg-primary/5 p-12">
-                  <h2 className="heading-section mb-8">СПАСИБО<br />ЗА ДОВЕРИЕ</h2>
-                  <p className="text-muted-foreground mb-12">Твой запрос получен. Я свяжусь с тобой в ближайшее время.</p>
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a href="https://t.me/danilovaelal" target="_blank" rel="noopener noreferrer" className="brutal-btn text-center">Telegram</a>
-                    <a href="https://vk.ru/danilovaelal" target="_blank" rel="noopener noreferrer" className="brutal-btn-outline text-center">ВКонтакте</a>
-                  </div>
+            <ScrollReveal>
+              <div className="border-[3px] border-foreground/20 p-8 md:p-12">
+                <h2 className="heading-section mb-4">СВЯЖИСЬ<br />СО МНОЙ</h2>
+                <p className="text-muted-foreground mb-12">Напиши любым удобным способом. Без обязательств — просто расскажи, что происходит.</p>
+                <div className="space-y-6">
+                  <a href="https://t.me/danilovaelal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                    <span className="brutal-btn text-center w-full md:w-auto">Telegram</span>
+                  </a>
+                  <a href="https://vk.com/danilovaelal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                    <span className="brutal-btn-outline text-center w-full md:w-auto">ВКонтакте</span>
+                  </a>
+                  <a href="mailto:ddanilovaelal@yandex.ru" className="flex items-center gap-4 group">
+                    <span className="brutal-btn-outline text-center w-full md:w-auto">ddanilovaelal@yandex.ru</span>
+                  </a>
                 </div>
-              </ScrollReveal>
-            ) : (
-              <ScrollReveal>
-                <div className="border-[3px] border-foreground/20 p-8 md:p-12">
-                  <h2 className="heading-section mb-4">ОСТАВИТЬ<br />ЗАПРОС</h2>
-                  <p className="text-muted-foreground mb-12">Без обязательств. Просто расскажи, что происходит.</p>
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    <div>
-                      <label className="text-mono text-muted-foreground block mb-2">Имя</label>
-                      <input {...register('name')} className="w-full bg-transparent border-[3px] border-foreground/20 p-4 text-foreground font-bold focus:outline-none focus:border-primary transition-colors" placeholder="Как к тебе обращаться" />
-                      {errors.name && <p className="text-sm text-destructive mt-2 font-bold">{errors.name.message}</p>}
-                    </div>
-                    <div>
-                      <label className="text-mono text-muted-foreground block mb-2">Способ связи</label>
-                      <input {...register('contact')} className="w-full bg-transparent border-[3px] border-foreground/20 p-4 text-foreground font-bold focus:outline-none focus:border-primary transition-colors" placeholder="Telegram, ВКонтакте, email..." />
-                      {errors.contact && <p className="text-sm text-destructive mt-2 font-bold">{errors.contact.message}</p>}
-                    </div>
-                    <div>
-                      <label className="text-mono text-muted-foreground block mb-2">Короткий запрос <span className="opacity-50">(необязательно)</span></label>
-                      <textarea {...register('message')} className="w-full bg-transparent border-[3px] border-foreground/20 p-4 text-foreground resize-none h-32 font-bold focus:outline-none focus:border-primary transition-colors" placeholder="Что происходит..." />
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <input type="checkbox" {...register('consent')} id="consent" className="mt-1 accent-primary w-5 h-5" />
-                      <label htmlFor="consent" className="text-sm text-muted-foreground">
-                        Я согласна на обработку данных в соответствии с <a href="/privacy" className="text-primary hover:underline">политикой конфиденциальности</a>
-                      </label>
-                    </div>
-                    {errors.consent && <p className="text-sm text-destructive font-bold">{errors.consent.message}</p>}
-                    <button type="submit" disabled={isSubmitting} className="brutal-btn disabled:opacity-50 w-full md:w-auto">
-                      {isSubmitting ? 'Отправляю...' : 'Отправить запрос'}
-                    </button>
-                  </form>
-                </div>
-              </ScrollReveal>
-            )}
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
